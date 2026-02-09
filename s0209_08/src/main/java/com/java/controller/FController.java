@@ -28,6 +28,7 @@ public class FController {
 	
 	@GetMapping("/member/member")
 	public String member() {
+		
 		return "member";
 	}
 	
