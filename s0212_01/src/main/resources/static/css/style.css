@@ -1,5 +1,4 @@
-*,
-body {
+*,body {
   margin: 0;
   padding: 0;
 
@@ -13,8 +12,6 @@ header {
   background: black;
   color: white;
 }
-a{text-decoration: none; cursor:pointer;}
-header ul li a{color:white; font-size:13px; }
 
 header ul {
   margin: 8px 15px 0px 0;
@@ -65,7 +62,7 @@ nav div {
 }
 
 .logo {
-  background: url(../images/ico_set.png) no-repeat -310px -375px;
+  background: url(https://www.cjcookit.com/cjkit/web/images/common/ico_set.png) no-repeat -310px -375px;
   background-size: 800px 800px;
 
   width: 110px;

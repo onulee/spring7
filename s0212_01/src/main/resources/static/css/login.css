@@ -77,13 +77,41 @@ input:hover {
   width: 26px;
   height: 26px;
 
-  background: url(https://www.cjcookit.com/cjkit/web/images/common/ico_set.png) no-repeat 0 -40px;
+  background: url(../images/ico_set.png) no-repeat;
+  background-position:  0 -40px;
   background-size: 800px 800px;
+}
+.save.on{
+  background-position:  -30px -40px;
+}
+
+input[type="checkbox"]:not(old) {
+  width:24px; height:24px;
+	opacity: 0;
+  vertical-align: middle;
+}
+input[type="checkbox"]:not(old) + label {
+  /*display:inline-block;*/
+	background: url(../images/ico_set.png) no-repeat ;
+  background-position:  0 -40px;
+  background-size: 800px 800px;
+	width: 26px; height: 26px;
+	margin-left: -26px;
+	padding-left: 26px;
+}
+
+input[type="checkbox"]:not(old):checked + label {
+	/*display:inline-block;*/
+	background: url(../images/ico_set.png) no-repeat -30px -40px;
+  background-size: 800px 800px;
+	width: 26px; height: 26px;
+	margin-left: -26px;
+	padding-left: 26px;
 }
 
 #save > span {
   position: relative;
-  top: -6px;
+  top: 0px;
   left: 2px;
   color: black;
 }
