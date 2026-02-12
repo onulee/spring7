@@ -24,7 +24,7 @@
 		 				<li><a href="/member/memberInfo">${session_name}님</a></li>
 		 				<li><a href="/member/logout">로그아웃</a></li>
 	 				</c:if>
-					<li><a href="#">고객행복센터</a></li>
+					<li><a href="/board/blist">고객행복센터</a></li>
 					<li><a href="#">배송지역검색</a></li>
 					<li><a href="#">기프트카드 등록</a></li>
 				</ul>

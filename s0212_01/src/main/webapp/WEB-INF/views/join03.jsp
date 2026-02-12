@@ -1,25 +1,36 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<link rel="stylesheet" type="text/css" href="css/style_header.css">
-		<link rel="stylesheet" type="text/css" href="css/style_join03_success.css">
-		<link rel="stylesheet" type="text/css" href="css/style_footer.css">
+		<link rel="stylesheet" type="text/css" href="../css/style_header.css">
+		<link rel="stylesheet" type="text/css" href="../css/style_join03_success.css">
+		<link rel="stylesheet" type="text/css" href="../css/style_footer.css">
 		<title>회원가입 - 회원가입완료</title>
 	</head>
 	<body>
 		<header>
 			<div id="nav_up">
 				<ul>
-					<li><a href="#">회원가입</a></li>
-					<li><a href="#">로그인</a></li>
-					<li><a href="#">고객행복센터</a></li>
+					<c:if test="${session_id == null }">
+		 				<li><a href="/member/join01">회원가입</a></li>
+		 				<li><a href="/member/login">로그인</a></li>
+	 				</c:if>
+	 				<c:if test="${session_id != null }">
+		 				<li><a href="/member/memberInfo">${session_name}님</a></li>
+		 				<li><a href="/member/logout">로그아웃</a></li>
+	 				</c:if>
+					<li><a href="/board/blist">고객행복센터</a></li>
 					<li><a href="#">배송지역검색</a></li>
 					<li><a href="#">기프트카드 등록</a></li>
 				</ul>
 			</div>	
 			<nav>
-				<a href="#"></a>
+				<a href="/"></a>
 				<ul>
 					<li><a href="#">COOKIT소개</a></li>
 					<li><a href="#">COOKIT메뉴</a></li>

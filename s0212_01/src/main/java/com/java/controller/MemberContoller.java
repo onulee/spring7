@@ -27,6 +27,22 @@ public class MemberContoller {
 	public String join02() {
 		return "join02";
 	}
+	// 회원가입03 확인 - phone1,2,3 ,email1,2
+ 	@PostMapping("/member/join03")
+	public String join03(MemberDto mdto,
+			String phone1,String phone2,String phone3,
+			String email1,String email2	) {
+ 		//넘어온 데이터 확인
+ 		String phone = String.format("%s-%s-%s", phone1,phone2,phone3);
+ 		String email = String.format("%s@%s", email1,email2);
+ 		mdto.setPhone(phone);
+ 		mdto.setEmail(email);
+ 		
+ 		//db저장
+ 		memberService.insertMember(mdto);
+ 		
+		return "join03";
+	}
 	
 	// 로그아웃 확인
 	@GetMapping("/member/logout")
