@@ -75,6 +75,7 @@
 					<span>(* 항목은 필수 항목입니다.)</span>
 				</h4>
 				<fieldset class="fieldset_class">
+				    
 					<dl id="join_name_dl">
 						<dt>
 							<div></div>
@@ -116,11 +117,12 @@
 							<label for="f_tell">휴대전화</label>
 						</dt>
 						<dd>
-							<input type="text" id="f_tell" name="phone1" maxlength="3" required />
+						    <c:set var="phones" value="${fn:split(member.phone,'-')}" />
+							<input type="text" id="f_tell" name="phone1" value="${phones[0]}" maxlength="3" required />
 							<span> - </span>
-							<input type="text" id="m_tell" name="phone2" maxlength="4" required />
+							<input type="text" id="m_tell" name="phone2" value="${phones[1]}" maxlength="4" required />
 							<span> - </span>
-							<input type="text" id="l_tell" name="phone3" maxlength="4" required />
+							<input type="text" id="l_tell" name="phone3" value="${phones[2]}" maxlength="4" required />
 						</dd>
 					</dl>
 					
@@ -130,9 +132,10 @@
 							<label for="mail_id">이메일</label>
 						</dt>
 						<dd>
-							<input type="text" id="mail_id" name="email1" required />
+						    <c:set var="emails" value="${fn:split(member.email,'@')}" />
+							<input type="text" id="mail_id" name="email1" value="${emails[0]}" required />
 							<span>@</span>
-							<input type="text" id="main_tail" name="email2" required />
+							<input type="text" id="main_tail" name="email2" value="${emails[1] }" required />
 							<select>
 								<option selected>직접입력</option>
 								<option>지메일</option>
@@ -148,9 +151,14 @@
 						</dt>
 						<dd>
 							<div>
-								<input type="radio" name="gender" id="male" value="M" checked="checked"/>
+								<input type="radio" name="gender" id="male" value="M" 
+								  <c:if test="${fn:contains(member.gender,'M')}">checked</c:if>
+								/>
+								
 								<label for="male">남성</label>
-								<input type="radio" name="gender" id="female" value="F" />
+								<input type="radio" name="gender" id="female" value="F" 
+									<c:if test="${fn:contains(member.gender,'F')}">checked</c:if>
+								/>
 								<label for="female">여성</label>
 							</div>
 						</dd>
@@ -163,23 +171,33 @@
 						<dd>
 							<ul>
 								<li>
-									<input type="checkbox" name="hobby" id="game" value="게임" />
+									<input type="checkbox" name="hobby" id="game" value="게임" 
+									  <c:if test="${fn:contains(member.hobby,'게임')}">checked</c:if>
+									/>
 									<label for="game">게임</label>
 								</li>
 								<li>
-									<input type="checkbox" name="hobby" id="golf" value="골프" />
+									<input type="checkbox" name="hobby" id="golf" value="골프"
+									  <c:if test="${fn:contains(member.hobby,'골프')}">checked</c:if>
+									 />
 									<label for="golf">골프</label>
 								</li>
 								<li>
-									<input type="checkbox" name="hobby" id="swim" value="수영" />
+									<input type="checkbox" name="hobby" id="swim" value="수영"
+									  <c:if test="${fn:contains(member.hobby,'수영')}">checked</c:if>
+									 />
 									<label for="swim">수영</label>
 								</li>
 								<li>
-									<input type="checkbox" name="hobby" id="run" value="조깅" />
+									<input type="checkbox" name="hobby" id="run" value="조깅"
+									  <c:if test="${fn:contains(member.hobby,'조깅')}">checked</c:if>
+									 />
 									<label for="run">조깅</label>
 								</li>
 								<li>
-									<input type="checkbox" name="hobby" id="book" value="독서" />
+									<input type="checkbox" name="hobby" id="book" value="독서" 
+									  <c:if test="${fn:contains(member.hobby,'독서')}">checked</c:if>
+									/>
 									<label for="book">독서</label>
 								</li>
 								

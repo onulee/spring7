@@ -28,4 +28,9 @@ public class MemberServiceImpl implements MemberService {
 		return memberDto;
 	}
 
+	@Override //회원정보수정 확인
+	public void updateMember(MemberDto mdto) {
+		memberMapper.updateMember(mdto);
+	}
+
 }

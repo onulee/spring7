@@ -12,9 +12,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		select * from member where id=#{id} and pw=#{pw} 
    </select>
    
+   <!-- 회원가입 -->
    <insert id="insertMember">
    		insert into member values (
    		 #{id},#{pw},#{name},#{phone},#{email},#{gender},#{hobby}
    		)
    </insert>
+   
+   <!-- 회원정보수정 -->
+   <update id="updateMember">
+   		update member set phone=#{phone},email=#{email},
+   		gender=#{gender},hobby=#{hobby} where id=#{id}
+   </update>
+   
 </mapper>

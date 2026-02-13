@@ -17,6 +17,16 @@
 		    	alert("${session_name}님 환영합니다.");
 		    	location.href="/";
 		    }
+			// 회원정보수정 성공
+		    if("${flag}"=="3"){
+		    	alert("${session_name} 회원정보가 수정되었습니다.");
+		    	location.href="/";
+		    }
+			// 회원정보 패스워드 불일치
+		    if("${flag}"=="4"){
+		    	alert("${session_name} 회원 패스워드가 일치하지 않습니다.");
+		    	location.href="/";
+		    }
 			
 			function logoutBtn(){
 				alert("로그아웃 되었습니다.");
@@ -40,7 +50,7 @@
 	 			    </c:if>
 	 				<li><a href="/board/blist">고객행복센터</a></li>
 	 				<li>배송정보검색</li>
-	 				<li>기프트카드 등록</li>
+	 				<li><a href="/member/j_join">j_join</a></li>
 	 			</ul>
 	 		</div>
 	 		<nav>

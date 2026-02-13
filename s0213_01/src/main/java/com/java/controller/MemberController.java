@@ -20,6 +20,7 @@ public class MemberController {
 	@Autowired HttpSession session;
 	
 	
+	// 회원정보수정페이지
 	@GetMapping("/member/mupdate")
 	public String mupdate(Model model) {
 		String id = (String)session.getAttribute("session_id");
@@ -27,6 +28,31 @@ public class MemberController {
 		model.addAttribute("member",memberDto);
 		System.out.println("mupdate id : "+id);
 		return "member/mupdate";
+	}
+	
+	// 회원정보수정 확인
+	@PostMapping("/member/mupdate")
+	public String mupdate(MemberDto mdto, 
+			String phone1,String phone2,String phone3,
+			String email1,String email2,
+			Model model) {
+		String id = (String)session.getAttribute("session_id");
+		mdto.setId(id);
+		
+		//패스워드 확인
+		MemberDto memberDto = memberService.selectOne(id);
+		if(!memberDto.getPw().equals(mdto.getPw())) {
+			System.out.println("패스워드가 일치하지 않음");
+			return "redirect:/?flag=4";
+		}
+		String phone = phone1+"-"+phone2+"-"+phone3;
+		mdto.setPhone(phone);
+		String email = email1+"@"+email2;
+		mdto.setEmail(email);
+		//db수정
+		memberService.updateMember(mdto);
+		System.out.println("mupdate id : "+id);
+		return "redirect:/?flag=3";
 	}
 	
 	
