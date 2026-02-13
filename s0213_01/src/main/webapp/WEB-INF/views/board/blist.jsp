@@ -1,3 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -6,22 +11,28 @@
   <title>Document</title>
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700,900&display=swap&subset=korean" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/notice_list.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/notice_list.css">
 </head>
 <body>
   <header>
     <ul>
-      <li>회원가입</li> <span>|</span>
-      <li>로그인</li> <span>|</span>
-      <li>고객행복센터</li> <span>|</span>
+      <c:if test="${session_id == null }">
+		<li><a href="/member/join01">회원가입</a></li><span>|</span>
+		<li><a href="/member/login">로그인</a></li><span>|</span>
+	  </c:if>
+	  <c:if test="${session_id != null }">
+		<li><a href="/member/mupdate">${session_name} 님</a></li><span>|</span>
+		<li><a onclick="logoutBtn()">로그아웃</a></li><span>|</span>
+	  </c:if>
+	  <li><a href="/board/blist">고객행복센터</a></li><span>|</span>
       <li>배송지역검색</li> <span>|</span>
       <li>기프트카드 등록</li>
     </ul>
   </header>
 
   <nav>
-    <div class="logo"></div>
+    <a href="/"><div class="logo"></div></a>
 
     <div id="search">
       <div class="search"></div><br>
@@ -64,65 +75,31 @@
 
     <table>
       <colgroup>
-        <col width="18%">
-        <col width="60%">
-        <col width="18%">
+        <col width="15%">
+        <col width="40%">
+        <col width="15%">
+        <col width="15%">
+        <col width="15%">
       </colgroup>
       <tr>
         <th>No.</th>
         <th>제목</th>
+        <th>작성자</th>
         <th>작성일</th>
+        <th>조회수</th>
       </tr>
+      <c:forEach var="board" items="${list}">
       <tr>
-        <td><span class="table-notice">NOTICE</span></td>
-        <td class="table-title">신종코로나바이러스 예방관련 운영 안내</td>
-        <td>2020-02-28</td>
+        <td>${board.bno}</td>
+        <td class="table-title">
+          <a href="/board/bview?bno=${board.bno}">${board.btitle}</a>
+        </td>
+        <td>${board.id}</td>
+        <td>${board.bdate}</td>
+        <td>${board.bhit}</td>
       </tr>
-      <tr>
-        <td><span class="table-notice">NOTICE</span></td>
-        <td class="table-title">[2020년3월] 시설 정비 공사 안내</td>
-        <td>2020-02-28</td>
-      </tr>
-      <tr>
-        <td><span class="table-notice">NOTICE</span></td>
-        <td class="table-title">[키즈잼] 2020년 이용 시간 & 이용 요금 변경 안내</td>
-        <td>2019-12-11</td>
-      </tr>
-      <tr>
-        <td><span class="table-notice">NOTICE</span></td>
-        <td class="table-title">[키즈잼] 2020년 1분기 정기 휴관일 안내</td>
-        <td>2019-12-11</td>
-      </tr>
-      <tr>
-        <td><span class="table-notice">NOTICE</span></td>
-        <td class="table-title">홈페이지 개인정보 보안 강화</td>
-        <td>2018-11-14</td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td class="table-title">[키즈잼] 3월 프로그램 안내</td>
-        <td>2020-02-18</td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td class="table-title">[키즈잼] 2월 프로그램 안내</td>
-        <td>2020-01-17</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td class="table-title">마이다스 멤버쉽 안내</td>
-        <td>2019-05-08</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td class="table-title">[마이다스 호텔&리조트] 제23회 경기건축문화 금상 수상</td>
-        <td>2018-10-10</td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td class="table-title">카카오플러스 친구 오픈</td>
-        <td>2018-07-11</td>
-      </tr>
+      </c:forEach>
+      
     </table>
 
     <ul class="page-num">
@@ -135,7 +112,9 @@
       <li class="last"></li>
     </ul>
 
-    <div class="write">쓰기</div>
+    <a href="/board/bwrite">
+	    <div class="write">쓰기</div>
+    </a>
   </section>
 
   <footer>

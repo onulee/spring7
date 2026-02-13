@@ -1,27 +1,38 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pages - Login</title>
+  <title>Pages - 글쓰기</title>
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700,900&display=swap&subset=korean" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/write.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/write.css">
 </head>
 
 <body>
   <header>
     <ul>
-      <li>회원가입</li> <span>|</span>
-      <li>로그인</li> <span>|</span>
-      <li>고객행복센터</li> <span>|</span>
+      <c:if test="${session_id == null }">
+		<li><a href="/member/join01">회원가입</a></li><span>|</span>
+		<li><a href="/member/login">로그인</a></li><span>|</span>
+	  </c:if>
+	  <c:if test="${session_id != null }">
+		<li><a href="/member/mupdate">${session_name} 님</a></li><span>|</span>
+		<li><a onclick="logoutBtn()">로그아웃</a></li><span>|</span>
+	  </c:if>
+	  <li><a href="/board/blist">고객행복센터</a></li><span>|</span>
       <li>배송지역검색</li> <span>|</span>
       <li>기프트카드 등록</li>
     </ul>
   </header>
 
   <nav>
-    <div class="logo"></div>
+    <a href="/"><div class="logo"></div></a>
 
     <div id="search">
       <div class="search"></div><br>
@@ -45,10 +56,10 @@
   </nav>
 
   <section>
-    <h1>관리자 글쓰기</h1>
+    <h1>글쓰기</h1>
     <hr>
 
-    <form action="/write" name="write" method="post">
+    <form action="/board/bwrite" name="write" method="post">
       <table>
         <colgroup>
           <col width="15%">
@@ -68,26 +79,26 @@
         <tr>
           <th>제목</th>
           <td>
-            <input type="text" name="title">
+            <input type="text" name="btitle">
           </td>
         </tr>
         <tr>
           <th>내용</th>
           <td>
-            <textarea name="content" cols="50" rows="10"></textarea>
+            <textarea name="bcontent" cols="50" rows="10"></textarea>
           </td>
         </tr>
         <tr>
           <th>이미지 표시</th>
           <td>
-            <input type="file" name="file" id="file">
+            <input type="file" name="bfile" id="file">
           </td>
         </tr>
       </table>
       <hr>
       <div class="button-wrapper">
         <button type="submit" class="write">작성완료</button>
-        <button type="button" class="cancel">취소</button>
+        <button type="button" onclick="history.back();" class="cancel">취소</button>
       </div>
     </form>
 
