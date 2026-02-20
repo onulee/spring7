@@ -11,7 +11,7 @@ public interface BoardService {
 	//게시글 전체가져오기
 	Map<String,Object> selectAll(int page);
 	//검색
-	List<BoardDto> selectSearch(SearchDto searchDto);
+	Map<String,Object> selectSearch(SearchDto searchDto);
 	//게시글 1개가져오기
 	BoardDto selectOne(BoardDto boardDto);
 	//게시글수정 및 1개가져오기

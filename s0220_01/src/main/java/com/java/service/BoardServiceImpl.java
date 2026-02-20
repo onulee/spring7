@@ -48,10 +48,38 @@ public class BoardServiceImpl implements BoardService {
 	}//
 	
 	@Override //검색
-	public List<BoardDto> selectSearch(SearchDto searchDto) {
-		List<BoardDto> list = boardMapper.selectSearch(searchDto);
-		return list;
-	}
+	public Map<String,Object> selectSearch(SearchDto searchDto) {
+		// 공통영역 ----------------------------------
+		// 1.하단넘버링에 필요한 컬럼
+		// 총게시글수, 현재페이지, 최대페이지, 첫페이지, 마지막 페이지
+		//page : 현재페이지
+		int page = 1;
+		int count = boardMapper.selectSearchCount(page);
+		double rowPerPage = 10; //한페이지당 몇개 게시글을 넣을지 설정
+		// 102/10 = 10.2 => 11
+		int maxPage = (int)Math.ceil(count/rowPerPage);
+		int startPage = ((page-1)/10)*10+1;
+		int engPage = startPage+10-1;
+		if (engPage>maxPage) engPage = maxPage; // 1-10 => 1-4 
+		
+		// 2. 해당 page의 게시글 가져오기
+		int startrow = (page-1)*10+1;
+		int endrow = startrow + (int)rowPerPage - 1;
+		System.out.println("startrow endrow : "+startrow+","+endrow);
+		
+		// 공통영역 ----------------------------------
+		List<BoardDto> list = boardMapper.selectSearch(searchDto,
+				startrow,endrow);
+		//리턴해야 할것 - list,총게시글수,현재페이지,최대페이지,첫페이지,마지막페이지
+		Map<String, Object> map = new HashMap<>();
+		map.put("count", count);
+		map.put("page", page);
+		map.put("maxPage", maxPage);
+		map.put("startPage", startPage);
+		map.put("engPage", engPage);
+		map.put("list", list);
+		return map;
+	}//search
 	
 	@Override //게시글 1개 가져오기
 	public BoardDto selectOne(BoardDto boardDto) {

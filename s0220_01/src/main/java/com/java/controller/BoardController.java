@@ -94,8 +94,8 @@ public class BoardController {
 		System.out.println("검색어 : "+searchDto.getCategory()+","
 	                       +searchDto.getSearch());
 		
-		List<BoardDto> list = boardService.selectSearch(searchDto);
-		model.addAttribute("list",list);
+		Map<String,Object> map = boardService.selectSearch(searchDto);
+		model.addAttribute("map",map);
 		model.addAttribute("searchDto",searchDto);
 		return "board/blist";
 	}

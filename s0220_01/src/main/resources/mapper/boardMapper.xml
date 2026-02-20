@@ -8,22 +8,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <select id="selectAllCount" resultType="int">
        select count(*) from board
    </select>
+   <select id="selectSearchCount" resultType="int">
+       select count(*) from board
+       <if test="category == 'btitle' or category == 'bcontent'">
+   		  where ${category} like '%'||#{search}||'%'
+   	   </if>
+   	   <if test="category == 'all'">
+   		  where btitle like '%'||#{search}||'%' or bcontent like '%'||#{search}||'%'
+   	   </if> 
+   </select>
    
    <select id="selectAll" resultType="com.java.dto.BoardDto">
    		select * from
-        ( select row_number() over (order by bgroup desc,bstep asc) rnum, 
-          a.* from board a ) where rnum between #{startrow} and #{endrow}
+        (select row_number() over (order by bgroup desc,bstep asc) rnum, a.* from board a 
+          
+          ) where rnum between #{startrow} and #{endrow}
    </select>
    <!-- 검색 -->
    <select id="selectSearch" resultType="com.java.dto.BoardDto">
-   		select * from board 
+   		select * from
+        (select row_number() over (order by bgroup desc,bstep asc) rnum, a.* from board a  
    		<if test="category == 'btitle' or category == 'bcontent'">
    		where ${category} like '%'||#{search}||'%'
    		</if>
    		<if test="category == 'all'">
    		where btitle like '%'||#{search}||'%' or bcontent like '%'||#{search}||'%'
    		</if>
-   		order by bgroup desc,bstep asc 
+   		) where rnum between 1 and 10 
    </select>
    <!-- 게시글 1개가져오기 -->
    <select id="selectOne" resultType="com.java.dto.BoardDto">

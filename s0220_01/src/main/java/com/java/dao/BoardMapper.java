@@ -17,7 +17,10 @@ public interface BoardMapper {
 			@Param("startrow") int startrow, 
 			@Param("endrow") int endrow);
 	//검색
-	List<BoardDto> selectSearch(SearchDto searchDto);
+	int selectSearchCount(int page);
+	List<BoardDto> selectSearch(SearchDto searchDto, 
+			@Param("startrow") int startrow, 
+			@Param("endrow") int endrow);
 	
 	//게시글 상세보기
 	BoardDto selectOne(BoardDto boardDto);
