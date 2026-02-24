@@ -12,4 +12,10 @@ public interface MemberService {
 	//전체회원리스트
 	List<MemberDto> findAll();
 
+	//회원가입 저장
+	void save(MemberDto mdto);
+
+	//회원삭제
+	void deleteById(MemberDto mdto);
+
 }

@@ -1,3 +1,8 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -253,48 +258,41 @@
         </ul>
       </div>
     </div>
-
+    <form action="/member/memberShip" method="post" name="mFrm" >
     <div class="form-box">
       <table>
         <tr>
           <td>아이디 <span style="color:red"></span></td>
           <td>
             <div class="id-check-box">
-              <input type="text" placeholder="영문소문자/숫자, 4~16자">
+              <input type="text" name="id" placeholder="영문소문자/숫자, 4~16자">
               <button type="button">중복확인</button>
             </div>
           </td>
         </tr>
         <tr>
           <td>비밀번호 <span style="color:red"></span></td>
-          <td><input type="password" placeholder="영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 10자~16자"></td>
+          <td><input type="password" name="pw" placeholder="영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 10자~16자"></td>
         </tr>
-        <tr>
-          <td>비밀번호 확인 <span style="color:red"></span></td>
-          <td><input type="password"></td>
-        </tr>
+       
         <tr>
           <td>이름</td>
-          <td><input type="text"></td>
-        </tr>
-        <tr>
-          <td>닉네임 <span style="color:red"></span></td>
-          <td><input type="text" placeholder="사용할 닉네임 입력"></td>
+          <td><input type="text" name="name"></td>
         </tr>
         <tr>
           <td>휴대전화 <span style="color:red"></span></td>
           <td>
             <div class="phone-input">
-              <select>
+              <select name="phone1">
                 <option>010</option>
                 <option>011</option>
                 <option>016</option>
                 <option>017</option>
               </select>
               <span>-</span>
-              <input type="text" maxlength="4">
+              <input type="text" name="phone2" maxlength="4">
               <span>-</span>
-              <input type="text" maxlength="4">
+              <input type="text" name="phone3" maxlength="4">
             </div>
           </td>
         </tr>
@@ -302,27 +300,32 @@
           <td>이메일 <span style="color:red"></span></td>
           <td>
             <div class="email-input">
-              <input type="email" placeholder="example@domain.com">
+              <input type="email" name="email" placeholder="example@domain.com">
               <button>인증번호받기</button>
             </div>
           </td>
         </tr>
         <tr>
-          <td>인증번호 확인</td>
-          <td>
-            <div class="code-input">
-              <input type="text" placeholder="인증번호 입력">
-              <button>확인</button>
-            </div>
-          </td>
+          <td>성별 <span style="color:red"></span></td>
+          <td><input type="text" name="gender" placeholder="성별을 입력하세요"></td>
+        </tr>
+        <tr>
+          <td>취미 <span style="color:red"></span></td>
+          <td><input type="text" name="hobby" placeholder="취미를 입력하세요"></td>
         </tr>
       </table>
     </div>
-
     <div class="btn-box">
-      <button class="btn cancel">취소</button>
-      <button class="btn submit">확인</button>
+      <button class="btn cancel" onclick="history.back()">취소</button>
+      <button type="button" class="btn submit" onclick="memBtn()">확인</button>
     </div>
+    </form>
+    <script>
+       function memBtn(){
+    	   alert("회원가입을 진행합니다.");
+    	   mFrm.submit();  //form의 action을 진행함.
+       }
+    </script>
   </div>
   <footer></footer>
 </body>

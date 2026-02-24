@@ -7,6 +7,7 @@
 		<title>에러페이지</title>
 	</head>
 	<body>
+	  <h2>${message}</h2>
 	  <div>
 		  <img src="/images/error500.jpg">
 	  </div>

@@ -9,6 +9,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VLAST Shop - 전체회원리스트</title>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="css/style.css" rel="stylesheet" type="text/css" >  
   <style>
@@ -244,6 +245,7 @@
           <th>전화번호</th>
           <th>성별</th>
           <th>취미</th>
+          <th>삭제</th>
         </tr>
       </thead>
       <tbody>
@@ -254,10 +256,26 @@
           <td>${member.phone}</td>
           <td class="date">${member.mdate}</td>
           <td class="views">${member.hobby}</td>
+          <td class="views">
+            <button type="button" class="delBtn">삭제</button>
+          </td>
         </tr>
       </c:forEach>
       </tbody>
     </table>
+    <script>
+      $(function(){
+    	 $(document).on("click",".delBtn",function(){
+    		const id = $(this).closest("tr").children("td").eq(0).text();
+    		console.log(id);
+    		if(confirm("회원을 삭제하시겠습니까?")){
+    			//delete : get방식 사용하지 말것.
+    			//select : get방식 
+				location.href="/member/delete?id="+id;    			
+    		}
+    	 }); 
+      });
+    </script>
     <!-- Pagination & Search -->
     <div class="board-footer" >
         <div class="pagination">
