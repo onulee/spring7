@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.java.dto.MemberDto;
 import com.java.repository.MemberRepository;
+
 
 
 @Service
@@ -51,9 +53,17 @@ public class MemberServiceImpl implements MemberService {
 		memberRepository.save(mdto);
 	}
 
+	@Transactional
 	@Override //회원삭제
 	public void deleteById(MemberDto mdto) {
-		memberRepository.deleteById(mdto.getId());
-	}
+		//1
+		memberRepository.deleteById(mdto.getId());  //commit
+		//2
+		//commit
+		//3
+		//commit
+		//4
+		
+	}//commit
 
 }
