@@ -16,5 +16,7 @@ public interface MemberService {
 	void save(MemberDto mdto);
 	//회원정보 상세보기
 	MemberDto findById(MemberDto mdto);
+	//회원정보 수정저장
+	void update(MemberDto mdto);
 
 }

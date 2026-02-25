@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.java.dto.MemberDto;
 import com.java.repository.MemberRepository;
@@ -59,7 +60,8 @@ public class MemberServiceImpl implements MemberService {
 		memberRepository.deleteById(mdto.getId());
 	}
 
-	//회원가입저장
+	//회원가입저장,수정
+	@Transactional
 	@Override
 	public void save(MemberDto mdto) {
 		memberRepository.save(mdto);
@@ -71,6 +73,24 @@ public class MemberServiceImpl implements MemberService {
 		MemberDto memberDto = memberRepository.findById(mdto.getId())
 				              .orElse(null);
 		return memberDto;
+	}
+
+	//회원정보 수정저장
+	@Transactional
+	@Override
+	public void update(MemberDto mdto) {
+		// 수정1. 검색후 검색된 데이터에 값변경
+		// 아이디,패스워드,이름,폰,이메일,성별,취미
+		// 폰,이메일,성별,취미만 수정가능
+//		MemberDto memberDto = memberRepository.findById(mdto.getId())
+//				              .orElse(null);
+//		memberDto.setPhone(mdto.getPhone());
+//		memberDto.setEmail(mdto.getEmail());
+//		memberDto.setGender(mdto.getGender());
+//		memberDto.setHobby(mdto.getHobby());
+		
+		//수정2. save() : 아이디가 없으면 insert, 아이디가 있으면 update진행
+		memberRepository.save(mdto);
 	}
 
 }

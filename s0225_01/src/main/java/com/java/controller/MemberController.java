@@ -22,12 +22,40 @@ public class MemberController {
 	@Autowired MemberService memberService;
 	@Autowired HttpSession session;
 	
+	//회원정보 수정저장
+	@PostMapping("/member/mupdate") 
+	public String mupdate(MemberDto mdto,
+			@RequestParam(name="phone1", required = false) String phone1,
+			@RequestParam(name="phone2", required = false) String phone2,
+			@RequestParam(name="phone3", required = false) String phone3,
+			Model model) {
+		String id = (String) session.getAttribute("session_id");
+		mdto.setId(id);
+		String phone = String.format("%s-%s-%s", phone1,phone2,phone3);
+		mdto.setPhone(phone);
+		//db저장 - update()
+		memberService.update(mdto);
+		return "redirect:/member/mlist";    
+	}
+	
+	//회원정보 수정페이지
+	@GetMapping("/member/mupdate") 
+	public String mupdate(MemberDto mdto,Model model) {
+		System.out.println("controller id : "+mdto.getId());
+		MemberDto memberDto = memberService.findById(mdto);
+		model.addAttribute("member",memberDto);
+		//010-1111-1111
+		String[] phones = memberDto.getPhone().split("-"); 
+		model.addAttribute("phones",phones);
+		return "mupdate";    
+	}
+	
 	//회원정보 상세보기
 	@GetMapping("/member/mview") 
 	public String mview(MemberDto mdto,Model model) {
 		System.out.println("controller id : "+mdto.getId());
-	    MemberDto memberDto = memberService.findById(mdto);
-	    model.addAttribute("member",memberDto);
+		MemberDto memberDto = memberService.findById(mdto);
+		model.addAttribute("member",memberDto);
 		return "mview";    
 	}
 	

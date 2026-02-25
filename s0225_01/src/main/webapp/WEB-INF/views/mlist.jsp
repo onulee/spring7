@@ -3,9 +3,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+  <c:if test="${session_id == null }">
+    <script>
+      alert("로그인을 하셔야 회원정보를 확인할수 있습니다.");
+      location.href="/member/login";
+    </script>
+  </c:if>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VLAST Shop - 전체회원리스트</title>

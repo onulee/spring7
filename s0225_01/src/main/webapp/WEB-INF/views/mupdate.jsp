@@ -8,7 +8,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>회원정보 상세보기</title>
+  <title>회원정보 수정</title>
   <style>
     @font-face {
         font-family: 'Pretendard';
@@ -249,52 +249,82 @@
   </div>
   <div class="container">
     <div class="steps">
-      <div class="title">회원정보 상세보기</div>
+      <div class="title">회원정보 수정</div>
       <div class="orderStep">
       </div>
     </div>
+    <form action="/member/mupdate" method="post" name="mFrm" >
+    <input type='hidden' name="name" value=${member.name } />
     <div class="form-box">
       <table>
         <tr>
           <td>아이디 <span style="color:red"></span></td>
-          <td>${member.id}</td>
+          <td>
+            <div class="id-check-box">${member.id}</div>
+          </td>
         </tr>
         <tr>
           <td>비밀번호 <span style="color:red"></span></td>
-          <td>${member.pw}</td>
+          <td><input type="password" name="pw" value="${member.pw}" placeholder="영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 10자~16자"></td>
         </tr>
        
         <tr>
           <td>이름</td>
-          <td>${member.name}</td>
+          <td>${member.name }</td>
         </tr>
         <tr>
           <td>휴대전화 <span style="color:red"></span></td>
-          <td>${member.phone}</td>
+          <td>
+            <div class="phone-input">
+              <select name="phone1">
+                <option <c:if test="${fn:contains(phones[0],'010')}">selected</c:if>>
+                010</option>
+                <option <c:if test="${fn:contains(phones[0],'011')}">selected</c:if>>
+                011</option>
+                <option <c:if test="${fn:contains(phones[0],'016')}">selected</c:if>>
+                016</option>
+                <option <c:if test="${fn:contains(phones[0],'017')}">selected</c:if>>
+                017</option>
+              </select>
+              <span>-</span>
+              <input type="text" name="phone2" value="${phones[1]}" maxlength="4">
+              <span>-</span>
+              <input type="text" name="phone3" value="${phones[2]}" maxlength="4">
+            </div>
+          </td>
         </tr>
         <tr>
           <td>이메일 <span style="color:red"></span></td>
-          <td>${member.email}</td>
+          <td>
+            <div class="email-input">
+              <input type="email" name="email" value="${member.email}" placeholder="example@domain.com">
+              <button>인증번호받기</button>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>성별 <span style="color:red"></span></td>
-          <td>${member.gender}</td>
+          <td><input type="text" name="gender" value="${member.gender}" placeholder="성별을 입력하세요"></td>
         </tr>
         <tr>
           <td>취미 <span style="color:red"></span></td>
-          <td>${member.hobby}</td>
+          <td><input type="text" name="hobby" value="${member.hobby}" placeholder="취미를 입력하세요"></td>
         </tr>
       </table>
     </div>
     <div class="btn-box">
       <a href="/member/mlist">
-        <button class="btn cancel">회원목록</button>
+	      <button type="button" class="btn cancel">취소</button>
       </a>
-      <a href="/member/mupdate?id=${member.id}">
-        <button type="button" class="btn submit">회원수정</button>
-      </a>
+      <button type="button" class="btn submit" onclick="memBtn()">회원정보수정</button>
     </div>
-    
+    </form>
+    <script>
+       function memBtn(){
+    	   alert("회원정보를 수정합니다.");
+    	   mFrm.submit();  //form의 action을 진행함.
+       }
+    </script>
   </div>
   <footer></footer>
 </body>

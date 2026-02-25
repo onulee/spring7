@@ -22,14 +22,14 @@
 	  <c:if test="${session_id == null }">
 	    <h3>로그인을 진행해 주세요.</h3>
 	    <li><a href="/member/login">로그인</a></li>
+	    <li><a href="/member/memberShip">회원가입</a></li>
 	  </c:if>
 	  <c:if test="${session_id != null }">
 	    <h3>${session_id} 님 환영합니다.</h3>
 	    <li><a onclick="logoutBtn()">로그아웃</a></li>
+	    <li><a href="/member/mlist">전체회원리스트</a></li>
 	  </c:if>
 	  <ul>
-	    <li><a href="/member/mlist">전체회원리스트</a></li>
-	    <li><a href="/member/memberShip">회원가입</a></li>
 	  </ul>
 	
 	</body>
