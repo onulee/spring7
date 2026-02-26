@@ -1,5 +1,7 @@
 package com.java.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.java.dto.BoardDto;
 import com.java.dto.MemberDto;
@@ -31,9 +35,27 @@ public class BoardController {
 	
 	//글쓰기 저장
 	@PostMapping("/board/bwrite")
-	public String bwrite(BoardDto bdto, Model model) {
+	public String bwrite(BoardDto bdto, 
+			@RequestPart("file") MultipartFile files,
+			Model model) {
 		System.out.println("controller bdto : "+bdto.getBtitle());
+		//파일이름 저장
+		if(!files.isEmpty()) {
+			String fName = files.getOriginalFilename();
+			long time = System.currentTimeMillis();
+			String refName = String.format("%s_%s", time,fName);
+			System.out.println("파일이름 : "+fName);
+			System.out.println("파일변경이름 : "+refName);
+			String fileUploadUrl = "c:/upload/";
+			File f = new File(fileUploadUrl+refName);
+			try {
+				files.transferTo(f);
+				bdto.setBfile(refName); //변경된 파일이름을 저장
+			} catch (Exception e) {e.printStackTrace();} 
+		}
+		
 		String id = (String) session.getAttribute("session_id");
+		
 		// MemberDto객체를 검색해서 저장
 		MemberDto mdto = memberService.findById(id);
 		bdto.setMemberDto(mdto);

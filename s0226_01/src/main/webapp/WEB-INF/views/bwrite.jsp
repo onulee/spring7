@@ -137,11 +137,15 @@
   <!-- 글쓰기 폼 -->
   <div class="write-container">
     <div class="write-title">게시글 작성</div>
-    <form action="/board/bwrite" method="post" name="bFrm" class="write-form" id="writeForm">
+    <form action="/board/bwrite" method="post" name="bFrm" 
+    class="write-form" id="writeForm" enctype="multipart/form-data">
       <input type="text" id="writer" value="${session_id}" readonly placeholder="작성자" maxlength="20" required />
       <input type="text" id="title" name="btitle" placeholder="제목" maxlength="100" required />
       <textarea id="content" name="bcontent" placeholder="내용을 입력하세요." maxlength="2000" required></textarea>
-
+      <input type="file" name="file" onchange="readUrl(this);" />
+      <div>
+         <img id="preview" style="width:300px;">
+      </div>
       <div class="write-buttons">
         <button type="submit">등록</button>
         <button type="button" class="cancel" onclick="history.back()">취소</button>
@@ -155,6 +159,19 @@
   </footer>
 
   <script>
+    function readUrl(input){
+    	if(input.files && input.files[0]){
+    		var reader = new FileReader();
+    		reader.onload = function(e){
+    			document.getElementById("preview").src=e.target.result;
+    		}
+    		reader.readAsDataURL(input.files[0]);
+    	}else{
+    		documnet.getElementById("preview").src = "";
+    	}
+    }
+  
+  
     const writeForm = document.getElementById('writeForm');
 
     writeForm.addEventListener('submit', (e) => {

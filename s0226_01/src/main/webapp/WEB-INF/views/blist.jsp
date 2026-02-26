@@ -250,7 +250,7 @@
 		<c:forEach var='board' items="${list}">
         <tr>
           <td>${board.bno}</td>
-          <td class="title"><a href="${board.bno}">${board.btitle}</a></td>
+          <td class="title"><a href="/board/bview?bno=${board.bno}">${board.btitle}</a></td>
           <td>${board.memberDto.name }</td>
           <td class="date">${board.bdate}</td>
           <td class="views">${board.bhit}</td>
