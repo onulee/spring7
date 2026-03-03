@@ -250,7 +250,7 @@
 		<c:forEach var='board' items="${map.list}">
         <tr>
           <td>${board.bno}</td>
-          <td class="title"><a href="/board/bview/${board.bno}">
+          <td class="title"><a href="/board/bview/${board.bno}?&page=${map.page}&category=${map.category}&search=${map.search}">
           <c:forEach begin="1" end="${board.bindent}" step="1">└</c:forEach>
           ${board.btitle}
           </a></td>
@@ -277,15 +277,22 @@
 	            	<a href="#" class="active">${i}</a>
 	            </c:if>
 	            <c:if test="${map.page!=i}">
-	                <a href="/board/blist?page=${i}">${i}</a>
+	                <a href="/board/blist?page=${i}&category=${map.category}&search=${map.search}">${i}</a>
 	            </c:if>
             </c:forEach>
             
             <a href="/board/blist?page=${map.maxPage}">&raquo;</a>
         </div>
         <div class="search-box">
-            <input type="text" placeholder="검색어 입력">
-            <button>검색</button>
+            <form action="/board/blist" method="get" name="sFrm">
+            <select name="category">
+              <option value="all">전체</option>
+              <option value="btitle">제목</option>
+              <option value="bcontent">내용</option>
+            </select>
+            <input type="text" name="search" placeholder="검색어 입력">
+            <button type="submit">검색</button>
+            </form>
         </div>
     </div>
     

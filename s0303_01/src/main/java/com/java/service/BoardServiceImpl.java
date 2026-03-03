@@ -38,7 +38,9 @@ public class BoardServiceImpl implements BoardService {
 		int maxPage = pageList.getTotalPages();      //마지막페이지
 		int startPage = ((page)/10)*10+1;          //하단넘버링 시작번호
 		int endPage = Math.min(startPage+10-1,maxPage);  //하단넘버링 마지막번호
-		List<BoardDto> list = pageList.getContent(); //게시글내용
+		// 게시글 내용 - 하단댓글내용추가
+		List<BoardDto> list = pageList.getContent(); 
+		System.out.println("commentList 개수 : "+list);
 		Map<String, Object> map = new HashMap<>();
 		map.put("page",page); // pageable = 0부터 시작함.
 		map.put("maxPage",maxPage);
@@ -48,7 +50,48 @@ public class BoardServiceImpl implements BoardService {
 		// 하단넘버링에 필요한 데이터
 		
 		return map;
-	}//
+	}//findAll
+	
+	//검색게시글리스트
+	@Override
+	public Map<String, Object> findContaining(int page, int size, String category, String search) {
+		//정렬 - bgroup:역순정렬,bstep:순차정렬
+		Sort sort = Sort.by(
+				Sort.Order.desc("bgroup"),Sort.Order.asc("bstep"));
+		//Pageable - 현재페이지,사이즈크기,정렬, pageable은 0부터 시작함.
+		Pageable pageable = PageRequest.of(page-1, size, sort);
+		
+		//Page타입으로 리턴해서 받음.
+		Page<BoardDto> pageList = null;
+		
+		//검색 - findByBtitleContaining(btitle)
+		if(category==null) {
+			pageList = boardRepository.findAll(pageable);
+		}else if(category.equals("all")) {
+			pageList = boardRepository.findByBtitleContainingOrBcontentContaining(search,search,pageable);
+		}else if(category.equals("bcontent")) {
+			pageList = boardRepository.findByBcontentContaining(search,pageable);
+		}else if(category.equals("btitle")) {
+			pageList = boardRepository.findByBtitleContaining(search,pageable);
+		}
+		
+		// 하단넘버링에 필요한 페이지를 구함.
+		int maxPage = pageList.getTotalPages();      //마지막페이지
+		int startPage = ((page)/10)*10+1;          //하단넘버링 시작번호
+		int endPage = Math.min(startPage+10-1,maxPage);  //하단넘버링 마지막번호
+		List<BoardDto> list = pageList.getContent(); //게시글내용
+		Map<String, Object> map = new HashMap<>();
+		map.put("page",page); // pageable = 0부터 시작함.
+		map.put("maxPage",maxPage);
+		map.put("startPage",startPage);
+		map.put("endPage",endPage);
+		map.put("list",list);
+		map.put("category",category);
+		map.put("search",search);
+		System.out.println("serviceImpl : "+category+","+search);
+		
+		return map;
+	}
 
 	//글쓰기저장
 	@Transactional // 메소드완료시 기존의 연속성context가 수정되면 db에 자동반영
@@ -106,9 +149,14 @@ public class BoardServiceImpl implements BoardService {
 		//해당글
 		BoardDto boardDto = boardRepository.findById(bno)
 				            .orElse(null);
+		
+		System.out.println(
+				"boardDto commentList 개수 : "+boardDto.getCommentList().size());
+		
 		map.put("preDto", preDto);
 		map.put("nextDto", nextDto);
 		map.put("boardDto", boardDto);
+		map.put("commentList", boardDto.getCommentList());
 		//조회수1증가 - 조회수 방지방법 cookies-쿠키삭제,session,db등록
 		boardDto.setBhit(boardDto.getBhit()+1);
 		return map;
@@ -119,6 +167,8 @@ public class BoardServiceImpl implements BoardService {
 	public void deleteById(Integer bno) {
 		boardRepository.deleteById(bno);
 	}//
+
+	
 
 	
 

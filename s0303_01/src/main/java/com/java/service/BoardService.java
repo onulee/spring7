@@ -15,6 +15,8 @@ public interface BoardService {
 	Map<String, Object> findAll(int page,int size);
 //	Page<BoardDto> findAll(Pageable pageable);
 //	List<BoardDto> findAll(Sort sort);
+	//검색게시글리스트
+	Map<String, Object> findContaining(int page, int size, String category, String search);
 	
 	//글쓰기저장
 	void save(BoardDto bdto);
@@ -27,6 +29,7 @@ public interface BoardService {
 	Map<String, Object> findById(Integer bno);
 	//게시글 삭제
 	void deleteById(Integer bno);
+
 	
 
 }

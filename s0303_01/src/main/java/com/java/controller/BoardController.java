@@ -145,13 +145,23 @@ public class BoardController {
 	//상세보기페이지
 	@GetMapping("/board/bview/{bno}")
 	public String bview(
-			@PathVariable(name="bno", required = false) Integer bno, 
+			@PathVariable(name="bno", required = false) Integer bno,
+			@RequestParam(name="page",required = false) String page,
+			@RequestParam(name="category",required = false) String category,
+			@RequestParam(name="search",required = false) String search,
 			Model model) {
 		System.out.println("controller bno : "+bno);
 		Map<String, Object> map = boardService.findById(bno);
+		//게시글1개
 		model.addAttribute("board",map.get("boardDto"));
+		//하단댓글리스트
+		model.addAttribute("commentList",map.get("commentList"));
+		System.out.println("commentList 상태 : "+map.get("commentList"));
 		model.addAttribute("preBoard",map.get("preDto"));
 		model.addAttribute("nextBoard",map.get("nextDto"));
+		model.addAttribute("page",page);
+		model.addAttribute("category",category);
+		model.addAttribute("search",search);
 		return "bview";
 	}
 	
@@ -197,9 +207,20 @@ public class BoardController {
 	public String blist(
 			@RequestParam(name="page",defaultValue = "1") int page,
 			@RequestParam(name="size",defaultValue = "10") int size,
+			@RequestParam(name="category",required = false) String category,
+			@RequestParam(name="search",required = false) String search,
 			Model model) {
-		Map<String, Object> map  = boardService.findAll(page,size);
+		Map<String, Object> map = null;
+		if(search == null) {
+			//전체가져오기
+			map  = boardService.findAll(page,size);
+		}else {
+			//검색
+			System.out.println("검색 : "+category+","+search);
+			map  = boardService.findContaining(page,size,category,search);
+		}
 		model.addAttribute("map",map);
+		System.out.println("model 검색 : "+map.get("category"));
 		return "blist";
 	}//blist-pageable
 	
