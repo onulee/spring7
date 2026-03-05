@@ -29,7 +29,7 @@ public class CustomerServiceImpl implements CustomerService {
 		//하단넘버링
 		Pageable pageable = PageRequest.of(page-1, size, sort);
 		Page<BoardDto> pageList = null;
-		if(category==null) 
+		if(category==null || category=="") 
 			pageList = customerRepository.findAll(pageable);
 		else if(category.equals("all")) 
 			pageList = customerRepository.findByBtitleContainingOrBcontentContaining(search,search,pageable);

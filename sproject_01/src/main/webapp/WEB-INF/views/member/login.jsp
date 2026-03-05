@@ -5,6 +5,19 @@
 <%@ include file="../layout/header.jsp" %>
 <!-- header부분끝 -->
 
+<c:if test="${flag == 1 }">
+  <script>
+      alert("로그인이 되었습니다.");
+      location.href="/";
+  </script>
+</c:if>
+
+<c:if test="${flag == -1 }">
+  <script>
+      alert("아이디 또는 패스워드가 일치하지 않습니다.\n다시 로그인해주세요.");
+  </script>
+</c:if>
+
 	<!-- container -->
 	<div id="container">
 
@@ -37,13 +50,20 @@
 					<h3>회원 로그인</h3>
 					<div class="informbox">
 						<div class="inform">
+							<form action="/member/login" method="post" name="loginFrm">
 							<ul>
-								<li><input type="text" class="loginType" onfocus="this.className='mfocus'" onblur="if (this.value.length==0) {this.className='loginType'}else {this.className='mfocusnot'}" style="ime-mode:inactive;" /></li>
-								<li><input type="password" class="passType" onfocus="this.className='mfocus'" onblur="if (this.value.length==0) {this.className='passType'}else {this.className='mfocusnot'}" style="ime-mode:inactive;" /></li>
+								<li><input type="text" name="id" class="loginType" onfocus="this.className='mfocus'" onblur="if (this.value.length==0) {this.className='loginType'}else {this.className='mfocusnot'}" style="ime-mode:inactive;" /></li>
+								<li><input type="password" name="pw" class="passType" onfocus="this.className='mfocus'" onblur="if (this.value.length==0) {this.className='passType'}else {this.className='mfocusnot'}" style="ime-mode:inactive;" /></li>
 							</ul>
 
-							<div class="btn"><a href="#" class="sbtn">로그인</a></div>
+							<div class="btn"><a onclick="loginBtn()" class="sbtn">로그인</a></div>
 							<div class="chk"><input type="checkbox" id="idsave"/><label for="idsave">아이디 저장</label></div>							
+							</form>
+							<script>
+							   function loginBtn(){
+								   loginFrm.submit();
+							   }
+							</script>
 
 							<div class="point">
 								<p>아이디와 비밀번호를 잊으셨나요?</p>
