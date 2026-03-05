@@ -50,7 +50,7 @@
 								<th scope="col" class="tnone">조회수</th>
 							</thead>
 							<tbody>
-							    <c:forEach var="c" items="${list}" >
+							    <c:forEach var="c" items="${map.list}" >
 								<tr>
 									<td class="tnone">${c.bno}</td>
 									<td class="left">
@@ -77,14 +77,18 @@
 					<div class="btnAreaList">
 						<!-- 페이징이동1 -->
 						<div class="allPageMoving1">
-
-						<a href="#" class="n"><img src="../images/btn/btn_pre2.gif" alt="처음으로"/></a><a href="#" class="pre"><img src="../images/btn/btn_pre1.gif" alt="앞페이지로"/></a>
-						<strong>1</strong>
-						<a href="#">2</a>
-						<a href="#">3</a>
-						<a href="#">4</a>
-						<a href="#">5</a>
-						<a href="#" class="next"><img src="../images/btn/btn_next1.gif" alt="뒤페이지로"/></a><a href="#" class="n"><img src="../images/btn/btn_next2.gif" alt="마지막페이지로"/></a>
+						<a href="/customer/customer?page=1" class="n"><img src="../images/btn/btn_pre2.gif" alt="처음으로"/></a>
+						<a href="/customer/customer?page=${map.page-1}" class="pre"><img src="../images/btn/btn_pre1.gif" alt="앞페이지로"/></a>
+						<c:forEach var="i" begin="${map.startPage}" end="${map.endPage}" step="1">
+							<c:if test="${map.page == i}">
+						       <strong>${i}</strong>
+							</c:if>	
+							<c:if test="${map.page != i}">
+						       <a href="/customer/customer?page=${i}">${i}</a>
+							</c:if>					
+						</c:forEach>
+						<a href="/customer/customer?page=${map.page+1}" class="next"><img src="../images/btn/btn_next1.gif" alt="뒤페이지로"/></a>
+						<a href="/customer/customer?page=${map.maxPage}" class="n"><img src="../images/btn/btn_next2.gif" alt="마지막페이지로"/></a>
 
 						</div>
 						<!-- //페이징이동1 -->
