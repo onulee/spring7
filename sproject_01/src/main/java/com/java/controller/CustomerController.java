@@ -21,9 +21,18 @@ public class CustomerController {
 	@GetMapping("/customer/customer")
 	public String customer(
 			@RequestParam(name="page",defaultValue = "1") int page,
+			@RequestParam(name="category",required = false) String category,
+			@RequestParam(name="search",required = false) String search,
 			Model model) {
-		Map<String, Object> map = customerService.findAll(page); 
+		Map<String, Object> map = customerService.findAll(page,category,search); 
 		model.addAttribute("map",map);
 		return "customer/customer";
 	} 
+	
+	//02.게시글쓰기
+	@GetMapping("/customer/customerWrite")
+	public String customerWrite() {
+		return "customer/customerWrite";
+	}
+	
 }

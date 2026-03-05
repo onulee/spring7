@@ -21,18 +21,30 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	//01.게시판리스트
 	@Override
-	public Map<String, Object> findAll(int page) {
+	public Map<String, Object> findAll(int page,String category, String search) {
 		int size = 7;
 		//정렬
 		Sort sort = Sort.by(
 				Sort.Order.desc("bgroup"),Sort.Order.asc("bstep"));
 		//하단넘버링
 		Pageable pageable = PageRequest.of(page-1, size, sort);
-		Page<BoardDto> pageList = customerRepository.findAll(pageable);
+		Page<BoardDto> pageList = null;
+		if(category==null) 
+			pageList = customerRepository.findAll(pageable);
+		else if(category.equals("all")) 
+			pageList = customerRepository.findByBtitleContainingOrBcontentContaining(search,search,pageable);
+		else if(category.equals("btitle")) 
+			pageList = customerRepository.findByBtitleContaining(search,pageable);
+		else if(category.equals("bcontent")) 
+			pageList = customerRepository.findByBcontentContaining(search,pageable);
+		
+		
 		//Page - content,totalPage
-		//list,현재페이지,최대페이지,하단넘버링시작번호,하단넘버링끝번호
+		//list,현재페이지,최대페이지,하단넘버링시작번호,하단넘버링끝번호,카테고리,검색어
 		//하단넘버링 메소드호출
 		Map<String, Object> map = pageMethod(pageList,page);
+		map.put("category", category);
+		map.put("search", search);
 		return map;
 	}
 	

@@ -54,7 +54,7 @@
 								<tr>
 									<td class="tnone">${c.bno}</td>
 									<td class="left">
-										<a href="/customer/customerView?bno=${c.bno}">${c.btitle}</a>
+										<a href="/customer/customerView?bno=${c.bno}&page=${map.page}&category=${map.category}&search=${map.search}">${c.btitle}</a>
 										<!-- 등록날짜와 현재날짜 비교해서 1일 이내이면 new아이콘 생성 -->
 										<!-- 날짜를 밀리초로 계산해서 비교 -->
 										<c:if test="${c.bdate.time >= now.time-(1000*60*60*24) }">
@@ -75,39 +75,55 @@
 
 
 					<div class="btnAreaList">
+					    <div class="bwright">
+							<ul>
+								<li><a href="/customer/customerWrite" class="sbtnMini">글쓰기</a></li>
+							</ul>
+						</div>
+					
 						<!-- 페이징이동1 -->
 						<div class="allPageMoving1">
-						<a href="/customer/customer?page=1" class="n"><img src="../images/btn/btn_pre2.gif" alt="처음으로"/></a>
-						<a href="/customer/customer?page=${map.page-1}" class="pre"><img src="../images/btn/btn_pre1.gif" alt="앞페이지로"/></a>
+						<a href="/customer/customer?page=1&category=${map.category}&search=${map.search}" class="n"><img src="../images/btn/btn_pre2.gif" alt="처음으로"/></a>
+						<a href="/customer/customer?page=${map.page-1}&category=${map.category}&search=${map.search}" class="pre"><img src="../images/btn/btn_pre1.gif" alt="앞페이지로"/></a>
 						<c:forEach var="i" begin="${map.startPage}" end="${map.endPage}" step="1">
 							<c:if test="${map.page == i}">
 						       <strong>${i}</strong>
 							</c:if>	
 							<c:if test="${map.page != i}">
-						       <a href="/customer/customer?page=${i}">${i}</a>
+						       <a href="/customer/customer?page=${i}&category=${map.category}&search=${map.search}">${i}</a>
 							</c:if>					
 						</c:forEach>
-						<a href="/customer/customer?page=${map.page+1}" class="next"><img src="../images/btn/btn_next1.gif" alt="뒤페이지로"/></a>
-						<a href="/customer/customer?page=${map.maxPage}" class="n"><img src="../images/btn/btn_next2.gif" alt="마지막페이지로"/></a>
+						<a href="/customer/customer?page=${map.page+1}&category=${map.category}&search=${map.search}" class="next"><img src="../images/btn/btn_next1.gif" alt="뒤페이지로"/></a>
+						<a href="/customer/customer?page=${map.maxPage}&category=${map.category}&search=${map.search}" class="n"><img src="../images/btn/btn_next2.gif" alt="마지막페이지로"/></a>
 
 						</div>
 						<!-- //페이징이동1 -->
 					</div>
 
 					<div class="searchWrap">
+					<form action="/customer/customer" method="get" name="sFrm">
 						<div class="search">
 							<ul>
 								<li class="web"><img src="../images/txt/txt_search.gif" alt="search" /></li>
 								<li class="se">
-									<select>
-										<option value="" />제목</option>
+									<select name="category">
+										<option value="all" />전체</option>
+										<option value="btitle" />제목</option>
+										<option value="bcontent" />내용</option>
 									</select>
 								</li>
-								<li><input type="text" class="searchInput" /></li>
-								<li class="web"><a href="#"><img src="../images/btn/btn_search.gif" alt="검색" /></a></li>
-								<li class="mobile"><a href="#"><img src="../images/btn/btn_search_m.gif" alt="검색" /></a></li>
+								<li><input type="text" name="search" class="searchInput" /></li>
+								<li class="web"><a onclick="searhBtn()"><img src="../images/btn/btn_search.gif" alt="검색" /></a></li>
+								<li class="mobile"><a onclick="searhBtn()"><img src="../images/btn/btn_search_m.gif" alt="검색" /></a></li>
 							</ul>
 						</div>
+					</form>
+					<script>
+					    function searhBtn(){
+					    	alert("검색을 시작합니다.");
+					    	sFrm.submit();
+					    }
+					</script>
 					</div>
 					<!-- //포토 구매후기 -->
 
