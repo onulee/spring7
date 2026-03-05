@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <!-- header부분 -->
 <%@ include file="../layout/header.jsp" %>
 <!-- header부분끝 -->
@@ -51,16 +50,23 @@
 								<th scope="col" class="tnone">조회수</th>
 							</thead>
 							<tbody>
-							
+							    <c:forEach var="c" items="${list}" >
 								<tr>
-									<td class="tnone">1</td>
+									<td class="tnone">${c.bno}</td>
 									<td class="left">
-										<a href="#">쟈뎅 전문 쇼핑몰 쟈뎅샵이 리뉴얼 오픈합니다.</a>
+										<a href="/customer/customerView?bno=${c.bno}">${c.btitle}</a>
+										<!-- 등록날짜와 현재날짜 비교해서 1일 이내이면 new아이콘 생성 -->
+										<!-- 날짜를 밀리초로 계산해서 비교 -->
+										<c:if test="${c.bdate.time >= now.time-(1000*60*60*24) }">
 										<img src="../images/ico/ico_new.gif" alt="NEW" />
+										</c:if>
 									</td>
-									<td>14-01-28</td>
-									<td class="tnone right">9999</td>
+									<td>
+									    <fmt:formatDate value="${c.bdate}" pattern="yyyy-MM-dd"/>
+									</td>
+									<td class="tnone right">${c.bhit}</td>
 								</tr>
+							    </c:forEach>
 
 							</tbody>
 						</table>

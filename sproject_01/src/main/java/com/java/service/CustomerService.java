@@ -1,12 +1,10 @@
 package com.java.service;
 
-import java.util.List;
-
-import com.java.dto.BoardDto;
+import java.util.Map;
 
 public interface CustomerService {
 
 	//01.게시판리스트
-	List<BoardDto> findAll();
+	Map<String, Object> findAll(int page);
 
 }
