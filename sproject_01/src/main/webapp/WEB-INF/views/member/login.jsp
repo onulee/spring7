@@ -11,6 +11,12 @@
       location.href="/";
   </script>
 </c:if>
+<c:if test="${flag == 0 }">
+  <script>
+      alert("로그아웃 되었습니다.");
+      location.href="/";
+  </script>
+</c:if>
 
 <c:if test="${flag == -1 }">
   <script>
@@ -61,6 +67,7 @@
 							</form>
 							<script>
 							   function loginBtn(){
+								   //input 체크확인
 								   loginFrm.submit();
 							   }
 							</script>

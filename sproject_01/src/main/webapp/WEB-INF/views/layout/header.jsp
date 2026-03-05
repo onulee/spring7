@@ -119,8 +119,14 @@ $(document).ready(function() {
 			</div>
 			<div id="snb">
 				<ul>
+					<c:if test="${session_id == null }">
 					<li><a href="/member/login">LOGIN</a></li>
-					<li><a href="#">JOIN</a></li>
+					<li><a href="/member/join">JOIN</a></li>
+					</c:if>
+					<c:if test="${session_id != null }">
+					<li><a href="/member/logout">LOGOUT</a></li>
+					<li><a href="/member/member">${session_name}님</a></li>
+					</c:if>
 					<li><a href="#">MY PAGE</a></li>
 					<li><a href="#">CART</a></li>
 				</ul>

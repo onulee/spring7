@@ -34,5 +34,13 @@ public class MemberController {
 			model.addAttribute("flag",-1);
 		}
 		return "member/login";
+	} //
+	
+	//03.로그아웃
+	@GetMapping("/member/logout")
+	public String logout(Model model) {
+		session.invalidate();
+		model.addAttribute("flag",0);
+		return "member/login";
 	} 
 }

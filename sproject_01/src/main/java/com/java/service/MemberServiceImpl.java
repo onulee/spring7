@@ -14,7 +14,9 @@ public class MemberServiceImpl implements MemberService {
 	//02.로그인 확인
 	@Override
 	public MemberDto findByIdAndPw(MemberDto mdto) {
-		MemberDto memberDto = memberRepository.findByIdAndPw(mdto.getId(),mdto.getPw());
+		MemberDto memberDto = memberRepository
+				.findByIdAndPw(mdto.getId(),mdto.getPw())
+				.orElse(null);
 		return memberDto;
 	}
 
