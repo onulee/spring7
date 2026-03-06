@@ -76,6 +76,33 @@ public class MemberController {
 		return "/member/step03";
 	}
 	
+	//07.회원가입 step03저장
+	@PostMapping("/member/step03")
+	public String step03(MemberDto mdto,
+			@RequestParam(name="phone1",required = false) String phone1,
+			@RequestParam(name="phone2",required = false) String phone2,
+			@RequestParam(name="phone3",required = false) String phone3,
+			@RequestParam(name="email1",required = false) String email1,
+			@RequestParam(name="email2",required = false) String email2,
+			Model model
+			) {
+		String phone = phone1+"-"+phone2+"-"+phone3;
+		String email = email1 +"@"+email2;
+		mdto.setPhone(phone);
+		mdto.setEmail(email);
+		//service 전달
+		memberService.save(mdto);
+		return "redirect:/member/step04?id="+mdto.getId();
+	}
+	
+	//08.회원가입페이지 step04
+	@GetMapping("/member/step04")
+	public String step04( Model model,
+			@RequestParam(name="id",required = false) String id	) {
+		model.addAttribute("id",id);
+		return "member/step04";
+	}
+	
 	
 	
 }

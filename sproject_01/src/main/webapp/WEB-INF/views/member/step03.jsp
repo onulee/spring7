@@ -74,17 +74,24 @@
 							<col width="22%" class="tw30" />
 							<col width="*" />
 							</colgroup>
+							
+							<form action="/member/step03" method="post" name="mFrm">
 							<tbody>
 								<tr>
 									<th scope="row"><span>이름 *</span></th>
-									<td>김슬기</td>
+									<td>
+										<ul class="pta">
+											<li class="r10"><input type="text" name="name" class="w134" /></li>
+											<li><span class="mvalign"></span></li>
+										</ul>
+									</td>
 								</tr>
 								<tr>
 									<th scope="row"><span>아이디 *</span></th>
 									<td>
 										<ul class="pta">
-											<li class="r10"><input type="text" class="w134" /></li>
-											<li><a href="#" class="nbtnMini">중복확인</a></li>
+											<li class="r10"><input type="text" name="id" class="w134" /></li>
+											<li><a onclick="confirmBtn()" class="nbtnMini">중복확인</a></li>
 											<li class="pt5"><span class="mvalign">첫 글자는 영문으로 4~16자 까지 가능, 영문, 숫자와 특수기호(_)만 사용 가능</span></li>
 										</ul>
 									</td>
@@ -93,7 +100,7 @@
 									<th scope="row"><span>비밀번호 *</span></th>
 									<td>
 										<ul class="pta">
-											<li class="r10"><input type="password" class="w134" /></li>
+											<li class="r10"><input type="password" name="pw" class="w134" /></li>
 											<li><span class="mvalign">※ 영문 / 숫자 혼용으로 4~20자 까지 가능.</span></li>
 										</ul>
 									</td>
@@ -102,8 +109,8 @@
 									<th scope="row"><span>비밀번호 확인 *</span></th>
 									<td>
 										<ul class="pta">
-											<li class="r10"><input type="password" class="w134" /></li>
-											<li>
+											<li class="r10"><input type="password" name="pw2" class="w134" /></li>
+											<li id="txt_id">
 												<span class="mvalign black">* 비밀번호가 일치입니다.</span>
 												<span class="mvalign orange">* 비밀번호가 일치하지 않습니다.</span>
 											</li>
@@ -111,233 +118,128 @@
 									</td>
 								</tr>
 								<tr>
+									<th scope="row"><span>전화번호</span></th>
+									<td>
+										<ul class="pta">
+											<li>
+												<select name="phone1">
+													<option value="010" selected="selected">010</option>
+													<option value="011">011</option>
+													<option value="017">017</option>
+												</select>
+											</li>
+											<li>&nbsp;<span class="valign">-</span>&nbsp;</li>
+											<li><input type="text" name="phone2" class="w74" maxlength="4" /> <span class="valign">-</span>&nbsp;</li>
+											<li><input type="text" name="phone3" class="w74" maxlength="4" /></li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
 									<th scope="row"><span>이메일</span></th>
 									<td>
 										<ul class="pta">
-											<li><input type="text" class="w134" /></li>
+											<li><input type="text" name="email1" class="w134" /></li>
 											<li><span class="valign">&nbsp;@&nbsp;</span></li>
-											<li class="r10"><input type="text" class="w134" /></li>
+											<li class="r10"><input type="text" name="email2" class="w134" /></li>
 											<li>
 												<select id="emailList">
 													<option value="#" selected="selected">직접입력</option>
 													<option value="naver.com">naver.com</option>
 													<option value="daum.net">daum.net</option>
 													<option value="hanmail.net">hanmail.net</option>
-													<option value="nate.com">nate.com</option>    
-													<option value="yahoo.co.kr">yahoo.co.kr</option>    
-													<option value="paran.com">paran.com</option>    
-													<option value="empal.com">empal.com</option>    
-													<option value="hotmail.com">hotmail.com</option>    
-													<option value="korea.com">korea.com</option>    
-													<option value="lycos.co.kr">lycos.co.kr</option>    
-													<option value="dreamwiz.com">dreamwiz.com</option>    
-													<option value="hanafos.com">hanafos.com</option>    
-													<option value="chol.com">chol.com</option>    
 													<option value="gmail.com">gmail.com</option>    
-													<option value="empas.com">empas.com</option>
+													<option value="nate.com">nate.com</option>    
 												</select>&nbsp;&nbsp;&nbsp;
 											</li>
 										</ul>
 									</td>
 								</tr>
 								<tr>
-									<th scope="row"><span>이메일 수신여부 *</span></th>
+									<th scope="row"><span>성별</span></th>
 									<td>
-										<p>쟈뎅에서 진행되는 이벤트와 쇼핑에 대한 정보를 이메일로 받아보시겠습니까?</p>
-										<ul class="question">
+										<ul class="pta">
 											<li>
-												<input type="radio" name="receive" id="receive_yes" class="radio_t" checked="checked"/><label for="receive_yes">예</label>
+												<ul class="baseQues">
+													<li>
+														<input type="radio" name="gender" value="남자" id="male" class="radio_t"/><label for="male">남자</label>
+													</li>
+													<li>
+														<input type="radio" name="gender" value="여자" id="female" class="radio_t"/><label for="female">여자</label>
+													</li>
+												</ul>
 											</li>
-											<li>
-												<input type="radio" name="receive" id="receive_no" class="radio_t"/><label for="receive_no">아니오</label>
-											</li>
+
 										</ul>
-										<p class="gray">* 거래관련 정보는 고객님의 거래안전을 위하여 이메일 수신거부와 관계없이 발송됩니다.</p>
 									</td>
 								</tr>
+								<tr>
+									<th scope="row"><span>취미</span></th>
+									<td>
+										<ul class="pta">
+											<li>
+												<ul class="baseQues">
+													<li>
+														<input type="checkbox" name="hobby" value="게임" id="game" class="radio_t"/><label for="game">게임</label>
+													</li>
+													<li>
+														<input type="checkbox" name="hobby" value="골프" id="golf" class="radio_t" /><label for="golf">골프</label>
+													</li>
+													<li>
+														<input type="checkbox" name="hobby" value="수영" id="swim" class="radio_t"/><label for="swim">수영</label>
+													</li>
+													<li>
+														<input type="checkbox" name="hobby" value="조깅" id="run" class="radio_t" /><label for="run">조깅</label>
+													</li>
+													<li>
+														<input type="checkbox" name="hobby" value="독서" id="book" class="radio_t" /><label for="book">독서</label>
+													</li>
+												</ul>
+											</li>
+
+										</ul>
+									</td>
+								</tr>
+								
+								
+								
 								<tr>
 									<th scope="row"><span>주소 *</span></th>
 									<td>
 										<ul class="pta">
 											<li>
-												<input type="text" class="w134" />&nbsp;
+												<input type="text" name="address1" class="w134" />&nbsp;
 											</li>
-											<li><a href="zip.html" class="addressBtn"><span>우편번호 찾기</span></a></li>
-											<li class="pt5"><input type="text" class="addressType" /></li>
+											<li><a onclick="zipcodeBtn()" class="addressBtn"><span>우편번호 찾기</span></a></li>
+											<li class="pt5"><input type="text" name="address2" class="addressType" /></li>
 											<li class="cb">
 												<span class="mvalign">※ 상품 배송 시 받으실 주소입니다. 주소를 정확히 적어 주세요.</span>
 											</li>
 										</ul>
 									</td>
 								</tr>
-								<tr>
-									<th scope="row"><span>휴대폰 *</span></th>
-									<td>
-										<ul class="pta">
-											<li>
-												<select>
-													<option value="010" selected="selected">010</option>
-													<option value="011">011</option>
-													<option value="016">016</option>
-													<option value="017">017</option>
-													<option value="018">018</option>    
-													<option value="019">019</option>    
-												</select>
-											</li>
-											<li>&nbsp;<span class="valign">-</span>&nbsp;</li>
-											<li><input type="text" class="w74" maxlength="4" /> <span class="valign">-</span>&nbsp;</li>
-											<li class="r10"><input type="text" class="w74" maxlength="4" /></li>
-											<li class="cb pt5"><span class="mvalign">※ SMS 서비스를 받아보시겠습니까?</span></li>
-											<li class="pt5">
-												<ul class="baseQues">
-													<li>
-														<input type="radio" name="sms" id="sms_yes" class="radio_t" checked="checked"/><label for="sms_yes">예</label>
-													</li>
-													<li>
-														<input type="radio" name="sms" id="sms_no" class="radio_t"/><label for="sms_no">아니오</label>
-													</li>
-												</ul>
-											</li>
-										</ul>
-									</td>
-								</tr>
-								<tr>
-									<th scope="row"><span>유선전화</span></th>
-									<td>
-										<ul class="pta">
-											<li>
-												<select>
-													<option value="02" selected="selected">02</option>
-													<option value="031">031</option>
-													<option value="032">032</option>
-													<option value="033">033</option>
-													<option value="041">041</option>
-													<option value="042">042</option>
-													<option value="043">043</option>
-													<option value="051">051</option>
-													<option value="052">052</option>
-													<option value="053">053</option>
-													<option value="054">054</option>
-													<option value="055">055</option>
-													<option value="061">061</option>
-													<option value="062">062</option>
-													<option value="063">063</option>
-													<option value="064">064</option>
-													<option value="070">070</option>
-												</select>
-											</li>
-											<li>&nbsp;<span class="valign">-</span>&nbsp;</li>
-											<li><input type="text" class="w74" maxlength="4" /> <span class="valign">-</span>&nbsp;</li>
-											<li><input type="text" class="w74" maxlength="4" /></li>
-										</ul>
-									</td>
-								</tr>
-								<tr>
-									<th scope="row"><span>생년월일</span></th>
-									<td>
-										<ul class="pta">
-											<li>
-												<select>
-													<option value='' selected="selected">선택하세요</option>
-													<script type="text/javascript">
-													//<![CDATA[
-														for(var i=1940; i<=2014; i++){
-															document.write("<option value=''>" + i + "년"+ "</option>");	
-														};
-													//]]>
-													</script>
-												</select>
-											</li>
-											<li>&nbsp;<span class="valign">년</span>&nbsp;&nbsp;&nbsp;</li>
-											<li>
-												<select>
-													<option value='' selected="selected">선택하세요</option>
-													<script type="text/javascript">
-													//<![CDATA[
-														for(var i=1; i<=12; i++){
-															if(i<10){
-																document.write("<option value=''>0" + i + "월"+"</option>");
-															}else{
-																document.write("<option value=''>" + i + "월"+ "</option>");
-															};
-														};
-													//]]>
-													</script>
-												</select>
-											</li>
-											<li>&nbsp;<span class="valign">월</span>&nbsp;&nbsp;&nbsp;</li>
-											<li>
-												<select>
-													<option value='' selected="selected">선택하세요</option>
-													<script type="text/javascript">
-													//<![CDATA[
-														for(var i=1; i<=31; i++){
-															if(i<10){
-																document.write("<option value=''>0" + i + "일"+"</option>");
-															}else{
-																document.write("<option value=''>" + i + "일"+ "</option>");
-															};
-														};
-													//]]>
-													</script>
-												</select>
-											</li>
-											<li class="r20">&nbsp;<span class="valign">일</span></li>
-											<li class="pt5">
-												<ul class="baseQues">
-													<li>
-														<input type="radio" name="birth" id="solar" class="radio_t" checked="checked"/><label for="solar">양력</label>
-													</li>
-													<li>
-														<input type="radio" name="birth" id="lunar" class="radio_t"/><label for="lunar">음력</label>
-													</li>
-												</ul>
-											</li>
-										</ul>
-									</td>
-								</tr>
-								<tr>
-									<th scope="row"><span>기업회원</span></th>
-									<td>
-										<ul class="pta">
-											<li>
-												<ul class="baseQues">
-													<li>
-														<input type="radio" name="business" id="partner" class="radio_t"/><label for="partner">예</label>
-													</li>
-													<li>
-														<input type="radio" name="business" id="general" class="radio_t" checked="checked"/><label for="general">아니오</label>
-													</li>
-												</ul>
-											</li>
-
-											<li class="cb">
-												<div class="businessTy">
-													<div><label for="">사업자번호</label> <input class="w134" type="text"></div>
-													<div><label for="">사업자등록증</label> <input class="fileType" type="file"></div>
-												</div>
-											<li>
-										</ul>
-									</td>
-								</tr>
 							</tbody>
+							</form>
+							
 							</table>
 						</div>
-						
-
 					</div>
-
 					
 					<!-- Btn Area -->
 					<div class="btnArea">
 						<div class="bCenter">
 							<ul>
-								<li><a href="#" class="nbtnbig">취소하기</a></li>
-								<li><a href="#" class="sbtnMini">가입하기</a></li>
+								<li><a href="/" class="nbtnbig">취소하기</a></li>
+								<li><a onclick="memberBtn()" class="sbtnMini">가입하기</a></li>
 							</ul>
 						</div>
 					</div>
 					<!-- //Btn Area -->
+					<script>
+					  function memberBtn(){
+						  alert("회원가입이 완료되었습니다.");
+						  mFrm.submit();
+					  }
+					</script>
 
 
 <script type="text/javascript" src="../js/jquery.fancybox-1.3.4.pack.js"></script>

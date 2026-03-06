@@ -20,4 +20,10 @@ public class MemberServiceImpl implements MemberService {
 		return memberDto;
 	}
 
+	//07.회원가입 step03저장
+	@Override
+	public void save(MemberDto mdto) {
+		memberRepository.save(mdto);
+	}
+
 }
