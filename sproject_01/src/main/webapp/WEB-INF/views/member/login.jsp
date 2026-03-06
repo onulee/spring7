@@ -58,12 +58,21 @@
 						<div class="inform">
 							<form action="/member/login" method="post" name="loginFrm">
 							<ul>
-								<li><input type="text" name="id" class="loginType" onfocus="this.className='mfocus'" onblur="if (this.value.length==0) {this.className='loginType'}else {this.className='mfocusnot'}" style="ime-mode:inactive;" /></li>
+								<li>
+								  <input type="text" name="id" class="loginType" onfocus="this.className='mfocus'" onblur="if (this.value.length==0) {this.className='loginType'}else {this.className='mfocusnot'}" style="ime-mode:inactive;"
+								     value="${cookie.cook_id.value}" autofocus
+								  />
+								 </li>
 								<li><input type="password" name="pw" class="passType" onfocus="this.className='mfocus'" onblur="if (this.value.length==0) {this.className='passType'}else {this.className='mfocusnot'}" style="ime-mode:inactive;" /></li>
 							</ul>
 
 							<div class="btn"><a onclick="loginBtn()" class="sbtn">로그인</a></div>
-							<div class="chk"><input type="checkbox" id="idsave"/><label for="idsave">아이디 저장</label></div>							
+							<div class="chk">
+							  <input type="checkbox" name="idsave" value="1" id="idsave"
+							  <c:if test="${not empty cookie.cook_id}">checked</c:if>
+							  />
+							  <label for="idsave">아이디 저장</label>
+							</div>							
 							</form>
 							<script>
 							   function loginBtn(){

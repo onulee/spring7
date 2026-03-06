@@ -44,6 +44,12 @@ dependencies {
 	
 	// 파일첨부
 	implementation("commons-io:commons-io:2.20.0")
+	
+	// email text메일 보냄
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	// email html메일 보냄
+	implementation 'javax.mail:javax.mail-api:1.6.2'
+	
 }
 
 tasks.named('test') {
