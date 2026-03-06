@@ -4,6 +4,41 @@
 <%@ include file="../layout/header.jsp" %>
 <!-- header부분끝 -->
 
+<script>
+  //01. 회원가입저장
+  function memberBtn(){
+	  alert("회원가입이 완료되었습니다.");
+	  mFrm.submit();
+  }
+  
+  //02. 아이디체크
+  function idCheckBtn(){
+	  alert("아이디 확인을 진행합니다.");
+	  let id = $("input[name='id']").val().trim();
+	  console.log("id : "+id);
+	  //아이디체크
+	  $.ajax({
+	    	 url:"/member/idCheck",
+	    	 type:"get",
+	    	 dataType:"text",
+	    	 data:{"id":id},
+	    	 success:function(data){
+	    		 console.log(data);
+	    		 if (data == "able"){
+		    		 $("#txt_idCheck").html("<span class='mvalign black'>* 아이디 사용가능</span>");
+	    		 }else{
+		    		 $("#txt_idCheck").html("<span class='mvalign orange'>* 아이디 사용불가</span>");
+	    		 }
+	    	 },
+	    	 error:function(){alert("실패");}
+	     });//ajax
+	     
+	  
+  }
+  
+  
+</script>
+
 	<!-- container -->
 	<div id="container">
 
@@ -91,7 +126,10 @@
 									<td>
 										<ul class="pta">
 											<li class="r10"><input type="text" name="id" class="w134" /></li>
-											<li><a onclick="confirmBtn()" class="nbtnMini">중복확인</a></li>
+											<li><a onclick="idCheckBtn()" class="nbtnMini">중복확인</a></li>
+											<li id="txt_idCheck">
+												
+											</li>
 											<li class="pt5"><span class="mvalign">첫 글자는 영문으로 4~16자 까지 가능, 영문, 숫자와 특수기호(_)만 사용 가능</span></li>
 										</ul>
 									</td>
@@ -234,12 +272,7 @@
 						</div>
 					</div>
 					<!-- //Btn Area -->
-					<script>
-					  function memberBtn(){
-						  alert("회원가입이 완료되었습니다.");
-						  mFrm.submit();
-					  }
-					</script>
+					
 
 
 <script type="text/javascript" src="../js/jquery.fancybox-1.3.4.pack.js"></script>
