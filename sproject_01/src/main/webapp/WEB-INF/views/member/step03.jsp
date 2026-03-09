@@ -3,6 +3,7 @@
 <!-- header부분 -->
 <%@ include file="../layout/header.jsp" %>
 <!-- header부분끝 -->
+<script src="//t1.kakaocdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script>
   //01. 회원가입저장
@@ -32,8 +33,37 @@
 	    	 },
 	    	 error:function(){alert("실패");}
 	     });//ajax
-	     
-	  
+  }//
+  
+  //03. 비밀번호확인
+  function pw_check(){
+	  const pw = $("#pw").val().trim();
+	  const pw2 = $("#pw2").val().trim();
+	  if(pw==pw2) $("#txt_pw").html("<span class='mvalign black'>* 비밀번호가 일치입니다.</span>");
+	  else $("#txt_pw").html("<span class='mvalign orange'>* 비밀번호가 일치하지 않습니다.</span>");
+  }//
+  
+  //04. 이메일출력
+  function email_change(){
+	  let txt = $("#emailList").val();
+	  if(txt!="all"){
+		  $("#email2").val( $("#emailList").val());
+		  $("#email2").prop("readOnly",true);
+	  }else{
+		  $("#email2").val("");
+		  $("#email2").prop("readOnly",false);
+		  $("#email2").focus();
+	  }
+  }//
+  
+  //05. 다음주소api
+  function zipcodeBtn(){
+	  new kakao.Postcode({
+	        oncomplete: function(data) {
+	            $("#address1").val(data.zonecode);
+	            $("#address2").val(data.address);
+	        }
+	  }).open();
   }
   
   
@@ -127,7 +157,7 @@
 										<ul class="pta">
 											<li class="r10"><input type="text" name="id" class="w134" /></li>
 											<li><a onclick="idCheckBtn()" class="nbtnMini">중복확인</a></li>
-											<li id="txt_idCheck">
+											<li id="txt_idCheck" style="padding-left:7px;">
 												
 											</li>
 											<li class="pt5"><span class="mvalign">첫 글자는 영문으로 4~16자 까지 가능, 영문, 숫자와 특수기호(_)만 사용 가능</span></li>
@@ -138,7 +168,7 @@
 									<th scope="row"><span>비밀번호 *</span></th>
 									<td>
 										<ul class="pta">
-											<li class="r10"><input type="password" name="pw" class="w134" /></li>
+											<li class="r10"><input type="password" name="pw" id="pw" class="w134" /></li>
 											<li><span class="mvalign">※ 영문 / 숫자 혼용으로 4~20자 까지 가능.</span></li>
 										</ul>
 									</td>
@@ -147,10 +177,8 @@
 									<th scope="row"><span>비밀번호 확인 *</span></th>
 									<td>
 										<ul class="pta">
-											<li class="r10"><input type="password" name="pw2" class="w134" /></li>
-											<li id="txt_id">
-												<span class="mvalign black">* 비밀번호가 일치입니다.</span>
-												<span class="mvalign orange">* 비밀번호가 일치하지 않습니다.</span>
+											<li class="r10"><input type="password" onkeyup="pw_check()" id="pw2" name="pw2" class="w134" /></li>
+											<li id="txt_pw">
 											</li>
 										</ul>
 									</td>
@@ -178,10 +206,10 @@
 										<ul class="pta">
 											<li><input type="text" name="email1" class="w134" /></li>
 											<li><span class="valign">&nbsp;@&nbsp;</span></li>
-											<li class="r10"><input type="text" name="email2" class="w134" /></li>
+											<li class="r10"><input type="text" id="email2" name="email2" class="w134" /></li>
 											<li>
-												<select id="emailList">
-													<option value="#" selected="selected">직접입력</option>
+												<select id="emailList" onchange="email_change()">
+													<option value="all" selected="selected">직접입력</option>
 													<option value="naver.com">naver.com</option>
 													<option value="daum.net">daum.net</option>
 													<option value="hanmail.net">hanmail.net</option>
@@ -245,10 +273,10 @@
 									<td>
 										<ul class="pta">
 											<li>
-												<input type="text" name="address1" class="w134" />&nbsp;
+												<input type="text" name="address1" id="address1" class="w134" />&nbsp;
 											</li>
 											<li><a onclick="zipcodeBtn()" class="addressBtn"><span>우편번호 찾기</span></a></li>
-											<li class="pt5"><input type="text" name="address2" class="addressType" /></li>
+											<li class="pt5"><input type="text" id="address2" name="address2" class="addressType" /></li>
 											<li class="cb">
 												<span class="mvalign">※ 상품 배송 시 받으실 주소입니다. 주소를 정확히 적어 주세요.</span>
 											</li>

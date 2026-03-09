@@ -26,4 +26,11 @@ public class MemberServiceImpl implements MemberService {
 		memberRepository.save(mdto);
 	}
 
+	//07-01.아이디 중복확인
+	@Override
+	public MemberDto findById(String id) {
+		MemberDto memberDto = memberRepository.findById(id).orElse(null);
+		return memberDto;
+	}
+
 }

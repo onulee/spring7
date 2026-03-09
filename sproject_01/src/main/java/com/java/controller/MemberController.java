@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.java.dto.MemberDto;
 import com.java.service.MemberService;
@@ -95,6 +96,19 @@ public class MemberController {
 		return "redirect:/member/step04?id="+mdto.getId();
 	}
 	
+	//07-01.아이디 중복확인
+	@ResponseBody
+	@GetMapping("/member/idCheck")
+	public String idCheck(MemberDto mdto) {
+		String id = mdto.getId();
+		System.out.println("id : "+id);
+		//
+		String temp = "able";
+		MemberDto memberDto = memberService.findById(id);
+		if(memberDto!=null) temp = "unable"; 
+		return temp;
+	}
+	
 	//08.회원가입페이지 step04
 	@GetMapping("/member/step04")
 	public String step04( Model model,
@@ -102,6 +116,8 @@ public class MemberController {
 		model.addAttribute("id",id);
 		return "member/step04";
 	}
+	
+	
 	
 	
 	

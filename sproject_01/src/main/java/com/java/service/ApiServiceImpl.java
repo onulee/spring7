@@ -1,5 +1,6 @@
 package com.java.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +9,14 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.java.dto.SaleDto;
+import com.java.repository.GraphRepository;
+
 @Service
 public class ApiServiceImpl implements ApiService {
 
 	@Autowired JavaMailSender mailSender;
+	@Autowired GraphRepository graphRepository;
 	
 	//01.이메일 발송
 	@Async // 비동기처리 - 이메일발송하는데 시간이 걸림.
@@ -55,5 +60,15 @@ public class ApiServiceImpl implements ApiService {
 		System.out.println("pwCode : "+pwCode);
 		return pwCode;
 	}
+
+	//03-02. 그래프 데이터 가져오기
+	@Override
+	public List<SaleDto> findByIdContaining(String syearMonth) {
+		List<SaleDto> list = graphRepository.findBySyearMonthContaining(syearMonth);
+		return list;
+	}
+	
+	
+	
 
 }
