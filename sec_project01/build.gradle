@@ -35,6 +35,12 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	
+	//시큐리티 태그
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	testImplementation 'org.springframework.boot:spring-boot-starter-security-test'
+	
+	implementation 'org.springframework.security:spring-security-taglibs:6.2.3'
+	
 	// JSP
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	// JSTL
@@ -45,10 +51,6 @@ dependencies {
 	// 파일첨부
 	implementation("commons-io:commons-io:2.20.0")
 	
-	//시큐리티 태그
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	testImplementation 'org.springframework.boot:spring-boot-starter-security-test'
-	implementation 'org.springframework.security:spring-security-taglibs:6.2.3'
 	
 	
 }

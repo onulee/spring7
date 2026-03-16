@@ -250,14 +250,9 @@
 		<c:forEach var='board' items="${list}">
         <tr>
           <td>${board.bno}</td>
-          <td class="title"><a href="/board/bview/${board.bno}">
-          <c:forEach begin="1" end="${board.bindent}" step="1">└</c:forEach>
-          ${board.btitle}
-          </a></td>
+          <td class="title"><a href="/board/bview?bno=${board.bno}">${board.btitle}</a></td>
           <td>${board.memberDto.name }</td>
-          <td class="date">
-            <fmt:formatDate value="${board.bdate}" pattern="yyyy-MM-dd"/>
-          </td>
+          <td class="date">${board.bdate}</td>
           <td class="views">${board.bhit}</td>
         </tr>
 		</c:forEach>        

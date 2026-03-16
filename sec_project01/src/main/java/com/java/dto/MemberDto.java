@@ -7,13 +7,13 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Builder
 @AllArgsConstructor
@@ -27,14 +27,21 @@ public class MemberDto {
 	private String username;
 	@Column(length = 100,nullable = false)
 	private String password;
-	@Column(length = 50,nullable = false)
-	private String name;
+	@Column
+	private String role;
+//	@Column(length = 50,nullable = false)
+//	private String name;
+//	@Column(length = 13)
+//	private String phone;
+//	@Column(length = 50)
+//	private String email;
+//	@Column(length = 6)
+//	@ColumnDefault("'남자'")
+//	private String gender;
+//	@Column(length = 50)
+//	private String hobby;
+//	@CreationTimestamp
+//	private Timestamp mdate;
 	
-	@Enumerated(EnumType.STRING)
-	private RoleType role;
-	
-	@CreationTimestamp
-	private Timestamp mdate;
-
 
 }

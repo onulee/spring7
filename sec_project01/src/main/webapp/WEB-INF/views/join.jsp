@@ -258,38 +258,61 @@
         </ul>
       </div>
     </div>
-    <form action="/auth/memberShip" method="post" name="mFrm" >
+    <form action="/auth/joinProc" method="post" name="mFrm" >
     <div class="form-box">
       <table>
         <tr>
           <td>아이디 <span style="color:red"></span></td>
           <td>
             <div class="id-check-box">
-              <input type="text" name="id" placeholder="영문소문자/숫자, 4~16자">
+              <input type="text" name="username" placeholder="영문소문자/숫자, 4~16자">
               <button type="button">중복확인</button>
             </div>
           </td>
         </tr>
         <tr>
           <td>비밀번호 <span style="color:red"></span></td>
-          <td><input type="password" name="pw" placeholder="영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 10자~16자"></td>
+          <td><input type="password" name="password" placeholder="영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 10자~16자"></td>
         </tr>
        
         <tr>
           <td>이름</td>
           <td><input type="text" name="name"></td>
         </tr>
-        
         <tr>
-          <td>권한 <span style="color:red"></span></td>
+          <td>휴대전화 <span style="color:red"></span></td>
+          <td>
+            <div class="phone-input">
+              <select name="phone1">
+                <option>010</option>
+                <option>011</option>
+                <option>016</option>
+                <option>017</option>
+              </select>
+              <span>-</span>
+              <input type="text" name="phone2" maxlength="4">
+              <span>-</span>
+              <input type="text" name="phone3" maxlength="4">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>이메일 <span style="color:red"></span></td>
           <td>
             <div class="email-input">
-              <input type="text" name="role" placeholder="USER,ADMIN">
+              <input type="email" name="email" placeholder="example@domain.com">
               <button>인증번호받기</button>
             </div>
           </td>
         </tr>
-        
+        <tr>
+          <td>성별 <span style="color:red"></span></td>
+          <td><input type="text" name="gender" placeholder="성별을 입력하세요"></td>
+        </tr>
+        <tr>
+          <td>취미 <span style="color:red"></span></td>
+          <td><input type="text" name="hobby" placeholder="취미를 입력하세요"></td>
+        </tr>
       </table>
     </div>
     <div class="btn-box">

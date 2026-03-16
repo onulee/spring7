@@ -165,7 +165,8 @@
   <div class="container">
     <div class="login-box">
       <h1>로그인</h1>
-      <form action="/loginProc" method="post" name="loginFrm">
+      <form action="/auth/loginProc" method="post" name="loginFrm">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
         <input type="text" name="username" placeholder="아이디" class="input-box" required>
         <input type="password" name="password" placeholder="비밀번호" class="input-box" required>
         <button type="submit" class="btn btn-login">로그인</button>
