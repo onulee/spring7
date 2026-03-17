@@ -11,10 +11,16 @@
 	</head>
 	<body>
 	  <h2>회원가입</h2>
-	  <form action="/auth/joinProc" method="post">
+	  <form action="/auth/joinProc" method="post" name="joinFrm">
 	    <input type="text" name="username" placeholder="아이디를 입력하세요."><br>
 	    <input type="text" name="password" placeholder="패스워드를 입력하세요."><br>
-	    <input type="submit" value="회원가입">
+	    <input type="button" onclick="joinBtn()" value="회원가입">
 	  </form>
 	</body>
+	<script>
+	   function joinBtn(){
+		   alert("회원가입이 완료되었습니다.");
+		   joinFrm.submit();
+	   }
+	</script>
 </html>

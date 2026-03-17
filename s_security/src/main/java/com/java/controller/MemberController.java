@@ -33,8 +33,7 @@ public class MemberController {
 		System.out.println("controller password : "+mdto.getPassword());
 		System.out.println("controller mdto : "+mdto);
 		memberService.save(mdto);
-		return "join";
-//		return "redirect:/";
+		return "redirect:/";
 	}
 	
 	

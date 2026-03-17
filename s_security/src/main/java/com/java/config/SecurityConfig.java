@@ -15,7 +15,6 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 		//예외페이지 적용
 		http
-			.csrf((auth) -> auth.disable()) //개발단계에서는 예외처리
 			.authorizeHttpRequests((auth) -> auth
 					//controller에서 page연결시 허가
 					.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
@@ -35,6 +34,7 @@ public class SecurityConfig {
 					.logoutSuccessUrl("/") //로그아웃 성공시 메인페이지 이동
 					.invalidateHttpSession(true) //세션모두종료
 			)		
+			//.csrf((auth) -> auth.disable()) //개발단계에서는 예외처리
 			;
 		return http.build(); //리턴하는 객체를 ioc컨테이너에 등록시켜줌.
 	}
