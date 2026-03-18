@@ -15,11 +15,6 @@
 	  <h2>메인페이지</h2>
 	  <ul>
 	    <li><a href="/board/board">라이언인형 구매사이트</a></li>
-	    <li><a href="/auth/join">회원가입</a></li>
-	    <li><a href="/auth/login">로그인</a></li>
-	    <li><a href="/member/mlist">회원리스트</a></li>
-	    <li><a href="/logout">로그아웃</a></li>
-	    <li><a href="/admin/adminPage">관리자페이지</a></li>
 	  </ul>
 	
 	</body>
