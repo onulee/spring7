@@ -9,10 +9,20 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class FController {
 
+	@GetMapping("/admin")
+	public String admin() {
+		return "admin";
+	}
+	@GetMapping("/errorException")
+	public String errorException() {
+		return "errorException";
+	}
+	
 	@GetMapping("/")
 	public String index(Model model) {
 		//세션정보 가져오기

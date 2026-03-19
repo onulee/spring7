@@ -24,6 +24,8 @@ public class SecurityConfig {
 					.requestMatchers("/admin/**").hasRole("ADMIN")
 					.requestMatchers("/member/**").hasAnyRole("ADMIN","MANAGER","USER") //2개이상
 					.anyRequest().authenticated())
+			.exceptionHandling((auth)->auth
+					.accessDeniedPage("/errorException"))
 			
 			.formLogin((auth)->auth
 					.loginPage("/auth/login")

@@ -14,13 +14,13 @@
 	<body>
 	  <h2>메인페이지</h2>
 	  <sec:authentication property="principal" var="principal" />
-	  <h3>로그인 아이디 : ${principal.username}</h3>
-	  <h3>로그인 role : ${principal.authorities[0].authority}</h3>
+	 
 	  <sec:authorize access="!isAuthenticated()">
 	     <h3>로그인이 되지 않았습니다</h3>
 	  </sec:authorize>
 	  <sec:authorize access="isAuthenticated()">
 	     <h3>로그인 되었습니다.</h3>
+	     <h3>로그인정보 : ${principal.username},${principal.authorities[0].authority}</h3>
 	  </sec:authorize>
 	  <ul>
 	    <li><a href="/auth/join">회원가입</a></li>
@@ -28,6 +28,7 @@
 	    <li><a href="/logout">로그아웃</a></li>
 	    <li><a href="/member/member">회원리스트</a></li>
 	    <li><a href="/board/board">게시판</a></li>
+	    <li><a href="/admin">admin관리자</a></li>
 	  </ul>
 	  
 	  <form action="/logout" method="post">
