@@ -35,12 +35,15 @@ public class CustomerController {
 	//01-01.게시판리스트 : react 게시판 연결
 	@CrossOrigin(origins = "http://localhost:3000")
 	@ResponseBody
-	@GetMapping("/customer/customerJson")
+	@GetMapping("/customer/api_list")
 	public Map<String, Object> customerJson(
 			@RequestParam(name="page",defaultValue = "1") int page,
 			@RequestParam(name="category",required = false) String category,
 			@RequestParam(name="search",required = false) String search
 			) {
+		System.out.println("controller page : "+page);
+		System.out.println("controller search : "+search);
+		
 		Map<String, Object> map = customerService.findAll(page,category,search); 
 		List<BoardDto> list = (List<BoardDto>) map.get("list");
 		return map;
