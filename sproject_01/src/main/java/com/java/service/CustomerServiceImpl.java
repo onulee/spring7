@@ -11,13 +11,19 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.java.dto.BoardApiDto;
 import com.java.dto.BoardDto;
+import com.java.dto.MemberDto;
 import com.java.repository.CustomerRepository;
+import com.java.repository.MemberRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired CustomerRepository customerRepository;
+	@Autowired MemberRepository memberRepository;
 	
 	//01.게시판리스트
 	@Override
@@ -63,6 +69,28 @@ public class CustomerServiceImpl implements CustomerService {
 		map.put("endPage", endPage);
 		return map;
 	}//
+
+	//게시글상세보기 
+	@Override
+	public BoardDto findById(Integer bno) {
+		BoardDto boardDto = customerRepository.findById(bno).orElse(null);
+		return boardDto;
+	}
+
+	//게시글쓰기 저장
+	@Transactional
+	@Override
+	public BoardDto save(BoardApiDto boardApiDto) {
+		MemberDto mDto = memberRepository.findById(boardApiDto.getId()).orElse(null);
+		BoardDto bDto = new BoardDto().builder()
+				.btitle(boardApiDto.getBtitle())
+				.bcontent(boardApiDto.getBcontent())
+				.memberDto(mDto).build();
+		BoardDto boardDto = customerRepository.save(bDto);
+		//bgroup에 bno번호를 다시 넣어줌.
+		boardDto.setBgroup(boardDto.getBno());
+		return boardDto;
+	}
 	
 	
 

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -14,12 +15,14 @@ import com.java.service.MemberService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @Controller
 public class MemberController {
 	
-	@Autowired MemberService memberService;
-	@Autowired HttpSession session;
+	private final MemberService memberService;
+	private final HttpSession session;
 
 	//01.로그인페이지 연결
 	@GetMapping("/member/login")
@@ -50,6 +53,46 @@ public class MemberController {
 		}
 		return "member/login";
 	} //
+	
+	//02-02. 세션 확인 - api
+	@ResponseBody
+	@GetMapping("/member/session")
+	public String session(){
+	    return (String) session.getAttribute("session_id");
+	}
+	
+	//02-01.로그인확인 - api
+	@ResponseBody
+	@PostMapping("/member/loginApi")
+	public String loginApi(@RequestBody MemberDto mdto, 
+			@RequestParam(name="idsave",required = false) String idsave,
+			HttpServletResponse response, Model model) {
+		
+		// 쿠키저장 - 입력된 아이디를 저장
+		Cookie cookie = new Cookie("cook_id", mdto.getId());
+		cookie.setPath("/");
+		if(idsave != null) cookie.setMaxAge(60*60*24*30); //30일동안 저장
+		else cookie.setMaxAge(0); //30일동안 저장
+		response.addCookie(cookie);
+		
+		// 로그인확인
+		String session_id = null;
+		MemberDto memberDto = memberService.findByIdAndPw(mdto);
+		if(memberDto != null) {
+			session.setAttribute("session_id", memberDto.getId());
+			session.setAttribute("session_name", memberDto.getName());
+			session_id = memberDto.getId();
+		}
+		return session_id;
+	} //
+	
+	//03-01.로그아웃 : react api
+	@ResponseBody
+	@GetMapping("/member/logoutApi")
+	public String logoutApi() {
+		session.invalidate();
+		return "success";
+	} 
 	
 	//03.로그아웃
 	@GetMapping("/member/logout")
