@@ -8,7 +8,7 @@ import java.net.Socket;
 import org.json.JSONObject;
 
 public class SocketClient {
-	//필드
+	//필드 - 클라이언트 채팅정보
 	ChatServer chatServer;
 	Socket socket;
 	String clientIp;
@@ -26,14 +26,14 @@ public class SocketClient {
 			InetSocketAddress isa = (InetSocketAddress) socket.getRemoteSocketAddress();
 			this.clientIp = isa.getHostName(); //getHostName메소드는 InetSocketAddress객체에 있음
 			receive();
-		} catch (Exception e) { e.printStackTrace(); }
+		} catch (Exception e) {  }
 	}
 	
 	//클라이언트에서 받는 메소드
 	private void receive() {
 		chatServer.threadPool.execute(()->{
-			while(true) {
-				try {
+			try {
+			    while(true) {
 					//전달받은형태 
 					//{"command":"incoming","data":"chatName"}
 					//{"command":"message","data":"xxxxx"}
@@ -52,12 +52,11 @@ public class SocketClient {
 							chatServer.sendToAll(this, message);
 							break;
 					}//switch
-				} catch (IOException e) {
-					e.printStackTrace();
-					chatServer.sendToAll(this, "나가셨습니다.");
-					chatServer.removeSocketClient(this);
-				}//try
-			}
+			    }//while
+			} catch (IOException e) {
+				chatServer.sendToAll(this, "나가셨습니다.");
+				chatServer.removeSocketClient(this);
+			}//try
 		});
 	}
 
@@ -66,14 +65,14 @@ public class SocketClient {
 		try {
 			dos.writeUTF(json);
 			dos.flush();
-		} catch (IOException e) { e.printStackTrace();	}
+		} catch (IOException e) { 	}
 	}
 
 	//서버 종료
 	public void close() {
 		try {
 			socket.close();
-		} catch (IOException e) {e.printStackTrace();}
+		} catch (IOException e) {}
 	}
 
 

@@ -27,12 +27,12 @@ public class ChatServer {
 		System.out.println("[서버] 시작됨.");
 		Thread thread = new Thread(()->{
 			try {
-				//연결수락
-				Socket socket = serverSocket.accept();
-				SocketClient sc = new SocketClient(this, socket);
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
+				while(true) {
+					//연결수락
+					Socket socket = serverSocket.accept();
+					SocketClient sc = new SocketClient(this, socket);
+				}
+			}catch(IOException e) {			}
 		});
 		thread.start();
 	}//
@@ -49,7 +49,7 @@ public class ChatServer {
 	public void removeSocketClient(SocketClient socketClient) {
 		String key = socketClient.chatName+"@"+socketClient.clientIp;
 		chatRoom.remove(key);
-		System.out.println("퇴장: "+key);
+		System.out.println("나감: "+key);
 		System.out.println("현재 채팅자 수: "+chatRoom.size()+"\n");
 	}//
 	
@@ -75,13 +75,11 @@ public class ChatServer {
 			threadPool.shutdownNow(); //즉시종료
 			chatRoom.values().stream().forEach(sc->sc.close());
 			System.out.println("[서버] 종료됨.");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		} catch (IOException e) {		}
 	}//
 	
 	
-	//
+	
 	public static void main(String[] args) {
 		try {
 			ChatServer chatServer = new ChatServer();
@@ -95,19 +93,11 @@ public class ChatServer {
 			Scanner scanner = new Scanner(System.in);
 			while(true) {
 				String key = scanner.nextLine();
-				if(key.toLowerCase().equals("q")) {
-					break;
-				}
+				if(key.toLowerCase().equals("q")) break;
 			}
 			scanner.close();
-			
-			//TCP 서버 종료
-			chatServer.stop();
-			
-			
-			
+			chatServer.stop(); //TCP 서버 종료
 		} catch (IOException e) {
-			//e.printStackTrace();
 			System.out.println("[서버] "+e.getMessage());
 		}
 		

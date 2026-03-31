@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 public class ChatClient {
 
-	//필드
+	//필드 - 채팅방정보
 	Socket socket;
 	DataInputStream dis;
 	DataOutputStream dos;
@@ -38,7 +38,6 @@ public class ChatClient {
 					System.out.println("["+chatName+"@"+clientIp+"]"+message);
 					
 				} catch (IOException e) {
-					e.printStackTrace();
 					System.out.println("[클라이언트] 서버 연결 끊김");
 					System.exit(0);
 				}
@@ -65,7 +64,7 @@ public class ChatClient {
 			
 			//대화명입력
 			Scanner scanner = new Scanner(System.in);
-			System.out.println("대화명 입력: ");
+			System.out.print("대화명 입력: ");
 			chatClient.chatName = scanner.nextLine();
 			
 			//Json데이터 전달
@@ -78,9 +77,33 @@ public class ChatClient {
 			//서버에서 데이터 받기 대기상태
 			chatClient.receive();
 			
-			
-		} catch (Exception e) {	e.printStackTrace(); }
-	}
+			System.out.println("-------------------------------------");
+			System.out.println("보낼 메세지를 입력하고 Enter");
+			System.out.println("채팅을 종료하려면 q를 입력하세요.");
+			System.out.println("-------------------------------------");
+			while(true) {
+				//키보드 입력
+				String message = scanner.nextLine();
+				if(message.toLowerCase().equals("q")) {
+					break;
+				}else{
+					//Json데이터 전달
+					jsonObject = new JSONObject();
+					jsonObject.put("command", "message");
+					jsonObject.put("data", message);
+					json = jsonObject.toString();
+					//대화방 메세지전달
+					chatClient.send(json);
+				}//if
+			}//while
+			// 클라이언트 종료
+			scanner.close();
+			chatClient.unconnect();
+		} catch (Exception e) {	
+			System.out.println("[클라이언트] 서버 연결 안됨"); 
+		}
+		System.out.println("[클라이언트] 종료");
+	}//
 	
 	
 	
